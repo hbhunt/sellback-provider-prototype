@@ -1,0 +1,172 @@
+<!-- $title Valore Mobile -->
+<!-- @include _header -->
+<body>
+
+	<div class="container">
+
+	<h1>Provider Electronics Buyback</h1>
+
+	<ol class="breadcrumb">
+		<li><a href="<!-- @path index.html -->">&hellip;</a></li>
+			<li><a href="#">List items to purchase</a></li>
+			<li class="active">Electronics</li>
+	</ol>
+
+	<div class="row">
+		<div class="col-md-9" id="content-col">
+			<h4>Active Listings</h4>
+			<table class="table table-condensed" data-bind='visible: devices().length > 0'>
+		        <thead>
+					<td></td>
+					<th>Device + model</th>
+					<th>Carrier</th>
+					<th>Size</th>
+					<th>Color</th>
+					<th colspan="4">Price and quantity</th>
+				</thead>
+				<tr>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th><small>Condition</small></th>
+					<th><small>Sold</small></th>
+					<th><small>Listed</small></th>
+					<th><small>Price</small></th>
+				</tr>
+		        <tbody data-bind='foreach: devices'>
+		            <tr class="clickable-row-2" data-toggle="modal" 
+		            	data-bind=	"click: $root.editDevice" href="#edit-row-modal">
+		            	<td rowspan="4"><!-- @placeholder 60x80 --></td>
+						<td rowspan="4" data-bind='text: name'></td>
+						<td rowspan="4" data-bind='text: carrier'></td>
+						<td rowspan="4" data-bind='text: storage'></td>
+						<td rowspan="4" data-bind='text: color'></td>
+						<!-- ko foreach: prices -->
+						<!-- ko if: $index == 0 -->
+						<td data-bind='text: condition'></td>
+		            	<td data-bind='text: purchased'></td>
+		            	<td data-bind='text: listed'></td>
+		            	<td data-bind='text: price'></td>
+						<!-- /ko -->
+						<!-- /ko -->
+		            </tr>
+		            <!-- ko foreach: prices -->
+		            <tr class="baby-row" data-toggle="modal" href="#edit-row-modal">
+		            	<td data-bind='text: condition'></td>
+		            	<td data-bind='text: purchased'></td>
+		            	<td class="watch" data-bind='text: listed'></td>
+		            	<td class="watch price" data-bind='text: price'></td>
+		            </tr>
+		            <!-- /ko -->
+		        </tbody>
+		    </table>
+
+			<button class="btn btn-default" data-toggle="modal" href="#add-item-modal">Add a device</button> 
+			<button class="btn btn-default" data-toggle="modal" href="#edit-all-modal">Edit all visible listings</button>
+			<!-- Edit row modal -->
+			<div class="modal fade" id="edit-row-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-bind="with: chosenDevice">
+				<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" data-bind="text: name + ' ' + carrier + ' ' + storage + ' ' + color"></h4>
+					</div>
+					<div class="modal-body">
+						<form role="form" id="device-form" data-bind="foreach: prices">
+							<div class="form-group row">
+								<label for="" class="col-lg-2 control-label" data-bind="text: condition"></label>
+								<div class="input-group col-lg-3">
+									<span class="input-group-addon">$</span>
+									<input type="text" inputmode="numeric" class="form-control" data-bind="value: price">
+								</div>
+								<div class="input-group col-lg-4">
+									<span class="input-group-addon">Quantity</span>
+									<input type="number" class="form-control" min="0" data-bind="value: listed">
+								</div>
+							</div>
+						</form>
+				  	</div>
+				  	<div class="modal-footer">
+				    	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				    	<button type="button" class="btn btn-primary" data-dismiss="modal" data-bind="click: $root.commitAll">Save changes</button>
+					</div>
+				</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+		</div><!-- /left column -->
+		<div class="col-md-3" id="filter-column">
+			<h4>Filter Listings</h4>
+
+			<pre data-bind="text: ko.toJSON($data, null, 2)"></pre>
+			<pre data-bind="text: filters().length"></pre>
+
+			<!-- ko foreach: filters -->
+			<h5 data-bind="text: name"></h5>
+			<form role="form">
+				<div class="form-group" data-bind="foreach: choices">
+					<div class="checkbox" data-bind="attr: { id: id }">
+						<label>
+							<input class="checkbox iphone" type="checkbox" data-bind="checked: value">
+							<span data-bind="text: label"></span>
+					 	</label>
+					</div><!-- /checkbox -->
+				</div><!-- /form group -->
+			</form>
+			<!-- /ko -->
+
+			<a data-bind="click: clearFilters">Clear Filters</a>
+
+		</div><!-- right column -->
+	</div>
+
+	<!-- Edit all modal -->
+	<div class="modal fade" id="edit-all-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">All Listings in Table</h4>
+			</div>
+			<div class="modal-body">
+		  		<!-- @include _modal-edit-form.html -->
+				<p>This will change the pricing and quantities available for:</p>
+				<ul>
+					<li>iPhone 4 AT&amp;T 64GB Black</li>
+					<li>iPhone 4 AT&amp;T 32GB Black</li>
+					<li>iPhone 4 AT&amp;T 16GB Black</li>
+				</ul>
+		  </div>
+		  <div class="modal-footer">
+		    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		    <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+		  </div>
+		</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+	<!-- Add an item modal -->
+	<div class="modal fade" id="add-item-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		    	<h4 class="modal-title">Add an Item</h4>
+		  </div>
+		  <div class="modal-body">
+				[Picker]
+		  </div>
+		  <div class="modal-footer">
+		    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		    <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+		  </div>
+		</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
+	<br>
+	<br>	
+	<!-- @include _footer -->
+	</div><!-- /.container -->
+</body>

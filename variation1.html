@@ -1,0 +1,363 @@
+<!-- $title Valore Mobile -->
+<!-- @include _header -->
+<body>
+
+	<div class="container">
+
+	<h1>Provider Electronics Buyback</h1>
+
+	<ol class="breadcrumb">
+		<li><a href="<!-- @path index.html -->">&hellip;</a></li>
+			<li><a href="#">List items to purchase</a></li>
+			<li class="active">Electronics</li>
+			<!-- <li class="active">Campbell Biology (9th Edition) (9th edition)</li> -->
+	</ol>
+
+	<div class="row">
+		<div class="col-md-9">
+			<h4>Active Listings</h4>
+			<table class="table table-condensed table-hover" id="active-listings-table">
+				<thead>
+					<td></td>
+					<th>Device + model</th>
+					<th>Carrier</th>
+					<th>Size</th>
+					<th>Color</th>
+					<th colspan="4">Price and quantity</th>
+				</thead>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<th><small>Condition</small></th>
+					<th><small>Sold</small></th>
+					<th><small>Listed</small></th>
+					<th><small>Price</small></th>
+				</tr>
+				<tr class="clickable-row" id="row-that-triggers-modal" data-toggle="modal" href="#edit-row-modal">
+					<td rowspan="3"><!-- @placeholder 60x80 --></td>
+					<td rowspan="3">iPhone 4</td>
+					<td rowspan="3">AT&amp;T</td>
+					<td rowspan="3">64GB</td>
+					<td rowspan="3">Black</td>
+					<!-- prices by condition -->
+					<td>Broken</td>
+					<td>4</td>
+					<td>10</td>
+					<td>$100</td>
+				</tr>	
+				<tr class="baby-middle-row">
+					<!-- prices by condition -->
+					<td>Used</td>
+					<td>7</td>
+					<td>10</td>
+					<td>$200</td>
+				</tr>
+				<tr class="baby-last-row">
+					<!-- prices by condition -->
+					<td>Excellent</td>
+					<td>1</td>
+					<td>10</td>
+					<!-- listed -->
+					<td>$300</td>
+				</tr>
+				<tr class="clickable-row" href="#">
+					<td rowspan="3"><!-- @placeholder 60x80 --></td>
+					<td rowspan="3">iPhone 4</td>
+					<td rowspan="3">AT&amp;T</td>
+					<td rowspan="3">32GB</td>
+					<td rowspan="3">Black</td>
+					<!-- prices by condition -->
+					<td>$100</td>
+					<td>$200</td>
+					<td>$300</td>
+					<!-- listed -->
+					<td>7</td>
+				</tr>
+				<tr class="baby-middle-row">
+					<!-- prices by condition -->
+					<td>Used</td>
+					<td>7</td>
+					<td>10</td>
+					<td>$200</td>
+				</tr>
+				<tr class="baby-last-row">
+					<!-- prices by condition -->
+					<td>Excellent</td>
+					<td>1</td>
+					<td>10</td>
+					<!-- listed -->
+					<td>$300</td>
+				</tr>
+				<tr class="clickable-row" href="#">
+					<td rowspan="3"><!-- @placeholder 60x80 --></td>
+					<td rowspan="3">iPhone 4</td>
+					<td rowspan="3">AT&amp;T</td>
+					<td rowspan="3">16GB</td>
+					<td rowspan="3">Black</td>
+					<!-- prices by condition -->
+					<td>Broken</td>
+					<td>4</td>
+					<td>10</td>
+					<td>$100</td>
+				</tr>
+				<tr class="baby-middle-row">
+					<!-- prices by condition -->
+					<td>Used</td>
+					<td>7</td>
+					<td>10</td>
+					<td>$200</td>
+				</tr>
+				<tr class="baby-last-row">
+					<!-- prices by condition -->
+					<td>Excellent</td>
+					<td>1</td>
+					<td>10</td>
+					<!-- listed -->
+					<td>$300</td>
+				</tr>
+			</table>
+			<button class="btn btn-default" data-toggle="modal" href="#add-item-modal">Add a device</button> 
+			<button class="btn btn-default" data-toggle="modal" href="#edit-all-modal">Edit all visible listings</button>
+		</div><!-- /left column -->
+		<div class="col-md-3">
+			<h4>Filter Listings</h4>
+
+			<h5>Device</h5>
+			<form role="form" id="device-form">
+				<div class="form-group">
+					<div class="checkbox">
+						<label>
+							<input class="checkbox iphone" type="checkbox" value="" checked>
+							iPhone
+					 	</label>
+					</div><!-- /checkbox -->
+					<div class="checkbox" id="ipad-checkbox">
+						<label>
+							<input class="checkbox ipad" type="checkbox" value="">
+							iPad
+					 	</label>
+					</div><!-- /checkbox -->
+				</div><!-- /form group -->
+			</form>
+
+			<h5>iPhone Model</h5>
+			<form role="form">
+				<div class="form-group">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value="" checked>
+							iPhone 4
+					 	</label>
+					</div><!-- /checkbox -->
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value="">
+							iPhone 4S
+					 	</label>
+					</div><!-- /checkbox -->
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value="">
+							iPhone 5
+					 	</label>
+					</div><!-- /checkbox -->
+				</div><!-- /form group -->
+			</form>
+
+			<div id="ipad-model">
+			<h5>iPad Model</h5>
+			<form role="form">
+				<div class="form-group">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value="">
+							1st Generation iPad
+					 	</label>
+					</div><!-- /checkbox -->
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value="">
+							2nd Generation iPad
+					 	</label>
+					</div><!-- /checkbox -->
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value="">
+							3rd Generation iPad
+					 	</label>
+					</div><!-- /checkbox -->
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value="">
+							4th Generation iPad
+					 	</label>
+					</div><!-- /checkbox -->
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value="">
+							iPad Mini
+					 	</label>
+					</div><!-- /checkbox -->
+				</div><!-- /form group -->
+			</form>
+			</div>
+
+			<h5>Carrier</h5>
+			<form role="form">
+				<div class="form-group">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value="">
+							Verizon
+					 	</label>
+					</div><!-- /checkbox -->
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value="" checked>
+							AT&amp;T
+					 	</label>
+					</div><!-- /checkbox -->
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value="">
+							T-Mobile
+					 	</label>
+					</div><!-- /checkbox -->
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value="">
+							Sprint
+					 	</label>
+					</div><!-- /checkbox -->
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value="">
+							Other / Unlocked
+					 	</label>
+					</div><!-- /checkbox -->
+				</div><!-- /form group -->
+			</form>
+
+			<h5>Size</h5>
+			<form role="form">
+				<div class="form-group">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value="">
+							64GB
+					 	</label>
+					</div><!-- /checkbox -->
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value="">
+							32GB
+					 	</label>
+					</div><!-- /checkbox -->
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value="">
+							16GB
+					 	</label>
+					</div><!-- /checkbox -->
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value="">
+							8GB
+					 	</label>
+					</div><!-- /checkbox -->
+				</div><!-- /form group -->
+			</form>
+
+			<h5>Color</h5>
+			<form role="form">
+				<div class="form-group">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value="">
+							White
+					 	</label>
+					</div><!-- /checkbox -->
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value="">
+							Black
+					 	</label>
+					</div><!-- /checkbox -->
+				</div><!-- /form group -->
+			</form>
+
+			<a href="#">Clear Filters	</a>
+
+		</div><!-- right column -->
+	</div>
+
+	<!-- Edit row modal -->
+	<div class="modal fade" id="edit-row-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">iPhone 4 AT&amp;T 64GB Black</h4>
+			</div>
+			<div class="modal-body">
+		  		<!-- @include _modal-edit-form.html -->
+		  </div>
+		  <div class="modal-footer">
+		    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		    <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+		  </div>
+		</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+	<!-- Edit all modal -->
+	<div class="modal fade" id="edit-all-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">All Listings in Table</h4>
+			</div>
+			<div class="modal-body">
+		  		<!-- @include _modal-edit-form.html -->
+				<p>This will change the pricing and quantities available for:</p>
+				<ul>
+					<li>iPhone 4 AT&amp;T 64GB Black</li>
+					<li>iPhone 4 AT&amp;T 32GB Black</li>
+					<li>iPhone 4 AT&amp;T 16GB Black</li>
+				</ul>
+		  </div>
+		  <div class="modal-footer">
+		    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		    <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+		  </div>
+		</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+	<!-- Add an item modal -->
+	<div class="modal fade" id="add-item-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		    	<h4 class="modal-title">Add an Item</h4>
+		  </div>
+		  <div class="modal-body">
+				[Picker]
+		  </div>
+		  <div class="modal-footer">
+		    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		    <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+		  </div>
+		</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
+	<br>
+	<br>	
+	<!-- @include _footer -->
+	</div><!-- /.container -->
+</body>
