@@ -14,57 +14,124 @@
 
 	<div class="row">
 		<div class="col-md-9" id="content-col">
-			<h4>Active Listings</h4>
-			<table class="table table-condensed" data-bind='visible: devices().length > 0'>
-		        <thead>
-				<td></td>
-				<th>Device + model</th>
-				<th>Carrier</th>
-				<th>Size</th>
-				<th>Color</th>
-				<th colspan="4">Price and quantity</th>
-			</thead>
-			<tr>
-				<th></th>
-				<th></th>
-				<th></th>
-				<th></th>
-				<th></th>
-				<th><small>Condition</small></th>
-				<th><small>Sold</small></th>
-				<th><small>Listed</small></th>
-				<th><small>Price</small></th>
-			</tr>
-		        <tbody data-bind='foreach: devices'>
-		            <tr class="clickable-row-2" data-toggle="modal" 
-		            	data-bind=	"click: $root.editDevice" href="#edit-row-modal">
-		            	<td rowspan="4"><!-- @placeholder 60x80 --></td>
-				<td rowspan="4" data-bind='text: name'></td>
-				<td rowspan="4" data-bind='text: carrier'></td>
-				<td rowspan="4" data-bind='text: storage'></td>
-				<td rowspan="4" data-bind='text: color'></td>
-				<!-- ko foreach: prices -->
-				<!-- ko if: $index == 0 -->
-				<td data-bind='text: condition'></td>
-		            	<td data-bind='text: purchased'></td>
-		            	<td data-bind='text: listed'></td>
-		            	<td data-bind='text: price'></td>
-				<!-- /ko -->
-				<!-- /ko -->
-		            </tr>
-		            <!-- ko foreach: prices -->
-		            <tr class="baby-row" data-toggle="modal" href="#edit-row-modal">
-		            	<td data-bind='text: condition'></td>
-		            	<td data-bind='text: purchased'></td>
-		            	<td class="watch" data-bind='text: listed'></td>
-		            	<td class="watch price" data-bind='text: price'></td>
-		            </tr>
-		            <!-- /ko -->
-		        </tbody>
-		    </table>
 
-			<button class="btn btn-default" data-toggle="modal" href="#add-item-modal">Add a device</button> 
-			<button class="btn btn-default" data-toggle="modal" href="#edit-all-modal">Edit all visible listings</button>
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#home" data-toggle="tab">Active Listings</a></li>
+				<li><a href="#profile" data-toggle="tab">All Listings</a></li>
+			</ul>
+
+
+
+			<div class="tab-content">
+				<div class="tab-pane active" id="home">
+					<br>
+					<h4>Active Listings</h4>
+					<table class="table table-condensed" data-bind='visible: devices().length > 0'>
+				        <thead>
+						<td></td>
+						<th>Device + model</th>
+						<th>Carrier</th>
+						<th>Size</th>
+						<th>Color</th>
+						<th colspan="4">Price and quantity</th>
+					</thead>
+					<tr>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th><small>Condition</small></th>
+						<th><small>Sold</small></th>
+						<th><small>Listed</small></th>
+						<th><small>Price</small></th>
+					</tr>
+				        <tbody data-bind='foreach: devices'>
+				            <tr class="clickable-row-2" data-toggle="modal" 
+				            	data-bind=	"click: $root.editDevice" href="#edit-row-modal">
+				            	<td rowspan="4"><!-- @placeholder 60x80 --></td>
+						<td rowspan="4" data-bind='text: name'></td>
+						<td rowspan="4" data-bind='text: carrier'></td>
+						<td rowspan="4" data-bind='text: storage'></td>
+						<td rowspan="4" data-bind='text: color'></td>
+						<!-- ko foreach: prices -->
+						<!-- ko if: $index == 0 -->
+						<td data-bind='text: condition'></td>
+				            	<td data-bind='text: purchased'></td>
+				            	<td data-bind='text: listed'></td>
+				            	<td data-bind='text: price'></td>
+						<!-- /ko -->
+						<!-- /ko -->
+				            </tr>
+				            <!-- ko foreach: prices -->
+				            <tr class="baby-row" data-toggle="modal" href="#edit-row-modal">
+				            	<td data-bind='text: condition'></td>
+				            	<td data-bind='text: purchased'></td>
+				            	<td class="watch" data-bind='text: listed'></td>
+				            	<td class="watch price" data-bind='text: price'></td>
+				            </tr>
+				            <!-- /ko -->
+				        </tbody>
+				    </table>
+
+					<button class="btn btn-default" data-toggle="modal" href="#edit-all-modal">Edit all visible listings</button>
+				</div><!-- /tab-pane -->
+				<div class="tab-pane" id="profile">
+					<br>
+					<h4>All Listings</h4>
+					<table class="table table-condensed" data-bind='visible: devices().length > 0'>
+					<thead>
+						<td></td>
+						<th>Device + model</th>
+						<th>Carrier</th>
+						<th>Size</th>
+						<th>Color</th>
+						<th colspan="4">Price and quantity</th>
+					</thead>
+					<tr>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th><small>Condition</small></th>
+						<th><small>Sold</small></th>
+						<th><small>Listed</small></th>
+						<th><small>Price</small></th>
+					</tr>
+				        <tbody data-bind='foreach: devices'>
+						<tr class="clickable-row-2" data-toggle="modal" 
+				            	data-bind=	"click: $root.editDevice" href="#edit-row-modal">
+							<td rowspan="4"><!-- @placeholder 60x80 --></td>
+							<td rowspan="4" data-bind='text: name'></td>
+							<td rowspan="4" data-bind='text: carrier'></td>
+							<td rowspan="4" data-bind='text: storage'></td>
+							<td rowspan="4" data-bind='text: color'></td>
+							<!-- ko foreach: prices -->
+							<!-- ko if: $index == 0 -->
+							<td data-bind='text: condition'></td>
+							<td data-bind='text: purchased'></td>
+							<td data-bind='text: listed'></td>
+							<td data-bind='text: price'></td>
+							<!-- /ko -->
+							<!-- /ko -->
+			            </tr>
+						<!-- ko foreach: prices -->
+						<tr class="baby-row" data-toggle="modal" href="#edit-row-modal">
+							<td data-bind='text: condition'></td>
+							<td data-bind='text: purchased'></td>
+							<td class="watch" data-bind='text: listed'></td>
+							<td class="watch price" data-bind='text: price'></td>
+						</tr>
+						<!-- /ko -->
+				        </tbody>
+				    </table>
+
+					<button class="btn btn-default" data-toggle="modal" href="#edit-all-modal">Edit all visible listings</button>
+				</div><!-- /tab-pane -->
+			</div><!-- /tab-content -->
+
+			
 		</div><!-- /left column -->
 		<div class="col-md-3" id="filter-column">
 			<h4>Filter Listings</h4>
