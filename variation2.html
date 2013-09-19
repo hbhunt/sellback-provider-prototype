@@ -167,4 +167,20 @@
 	<br>	
 	<!-- @include _footer -->
 	</div><!-- /.container -->
+
+	<script>
+	$(document).ready(function(){
+		// hide filters that don't apply
+	  	hide_ipad();
+	  	clickable_rows();
+	  	hover_rowspan_fix();
+	  	set_tooltips();
+	  	watch_values();
+	  	price_link_targets();
+
+		$(".checkbox").change(function(e){
+			check_ipad();
+		});
+	});	
+	</script>
 </body>

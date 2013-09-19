@@ -1,4 +1,3 @@
-
 //wrapper to an observable that requires accept/cancel
 ko.protectedObservable = function(initialValue) {
     //private variables
@@ -37,17 +36,17 @@ var initialData = [
     { 	name: "iPhone 4", carrier: "AT&T", storage: "64GB",
      	color: "black",  
      	prices: [
-     		{ condition: "Broken", listed : "10", purchased: "4", price: "100" },
-		{ condition: "Used", listed : "10", purchased: "7", price: "200" },
-		{ condition: "Excellent", listed : "10", purchased: "1", price: "300" }
+     		{ condition: "Broken", listed : "0", purchased: "4", price: "100" },
+		{ condition: "Used", listed : "0", purchased: "7", price: "200" },
+		{ condition: "Excellent", listed : "0", purchased: "1", price: "300" }
         ]
     },
     { 	name: "iPhone 4", carrier: "AT&T", storage: "32GB",
      	color: "black",  
      	prices: [
-     		{ condition: "Broken", listed : "10", purchased: "3", price: "101" },
-		{ condition: "Used", listed : "10", purchased: "6", price: "201" },
-		{ condition: "Excellent", listed : "10", purchased: "2", price: "301" }
+     		{ condition: "Broken", listed : "0", purchased: "3", price: "101" },
+		{ condition: "Used", listed : "0", purchased: "6", price: "201" },
+		{ condition: "Excellent", listed : "0", purchased: "2", price: "301" }
         ]
     }
 ];
@@ -96,6 +95,16 @@ var initialFilters = [
     }
 ];
 
+var isListed = function(device){
+   var listed = false;
+   ko.utils.arrayForEach(device.prices(), function(price){
+      if( parseInt(price.listed()) > 0 ){
+         listed = true;
+      }
+   });
+   return listed;
+ }
+
 var DevicesModel = function(initial_devices, initial_filters) {
     // Data
     var self = this;
@@ -107,20 +116,22 @@ var DevicesModel = function(initial_devices, initial_filters) {
     self.filters = ko.mapping.fromJS([]);
     ko.mapping.fromJS(initial_filters, self.filters); // black magic
 
-    self.activeListings = ko.computed(function(){
-        //uh oh
-    });
+    self.activeDevices = ko.computed(function(){
+        return ko.utils.arrayFilter(self.devices(), function(device){
+            return isListed(device);
+        })
+    }, self);
 
     self.commitAll = function() {
-    	ko.utils.arrayForEach(self.chosenDevice().prices(), function(price) {
+      ko.utils.arrayForEach(self.chosenDevice().prices(), function(price) {
 	        price.listed.commit();
 	        price.price.commit();
     	});
     };
     self.resetAll = function() {
-		ko.utils.arrayForEach(self.chosenDevice().prices(), function(price) {
-	        price.listed.reset();
-	        price.price.reset();
+	ko.utils.arrayForEach(self.chosenDevice().prices(), function(price) {
+            price.listed.reset();
+            price.price.reset();
     	});
     };
     self.editDevice = function(device) {

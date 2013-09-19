@@ -1,18 +1,3 @@
-$(document).ready(function(){
-
-	// hide filters that don't apply
-  	hide_ipad();
-  	clickable_rows();
-  	hover_rowspan_fix();
-  	set_tooltips();
-  	watch_values();
-  	price_link_targets();
-
-	$(".checkbox").change(function(e){
-		check_ipad();
-	});
-});
-
 var clickable_rows = function(){ 
 	$(".clickable-row").click(function() {
 		window.document.location = $(this).attr("href");
@@ -144,10 +129,10 @@ var watch_values = function() {
 
 var price_link_targets = function() {
 	$(".baby-row").on("click", function() {
-    	var context = ko.contextFor(this); //this is the element that was clicked
-    	if (context) {
-        	context.$root.editDevice(context.$parent);
-    	}
+    		var context = ko.contextFor(this); //this is the element that was clicked
+    		if (context) {
+        			context.$root.editDevice(context.$parent);
+    		}
 	});
 }
 

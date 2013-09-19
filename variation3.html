@@ -20,112 +20,68 @@
 				<li><a href="#profile" data-toggle="tab">All Listings</a></li>
 			</ul>
 
-
-
 			<div class="tab-content">
 				<div class="tab-pane active" id="home">
 					<br>
 					<h4>Active Listings</h4>
-					<table class="table table-condensed" data-bind='visible: devices().length > 0'>
-				        <thead>
-						<td></td>
-						<th>Device + model</th>
-						<th>Carrier</th>
-						<th>Size</th>
-						<th>Color</th>
-						<th colspan="4">Price and quantity</th>
-					</thead>
-					<tr>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th><small>Condition</small></th>
-						<th><small>Sold</small></th>
-						<th><small>Listed</small></th>
-						<th><small>Price</small></th>
-					</tr>
-				        <tbody data-bind='foreach: devices'>
-				            <tr class="clickable-row-2" data-toggle="modal" 
-				            	data-bind=	"click: $root.editDevice" href="#edit-row-modal">
-				            	<td rowspan="4"><!-- @placeholder 60x80 --></td>
-						<td rowspan="4" data-bind='text: name'></td>
-						<td rowspan="4" data-bind='text: carrier'></td>
-						<td rowspan="4" data-bind='text: storage'></td>
-						<td rowspan="4" data-bind='text: color'></td>
-						<!-- ko foreach: prices -->
-						<!-- ko if: $index == 0 -->
-						<td data-bind='text: condition'></td>
-				            	<td data-bind='text: purchased'></td>
-				            	<td data-bind='text: listed'></td>
-				            	<td data-bind='text: price'></td>
-						<!-- /ko -->
-						<!-- /ko -->
-				            </tr>
-				            <!-- ko foreach: prices -->
-				            <tr class="baby-row" data-toggle="modal" href="#edit-row-modal">
-				            	<td data-bind='text: condition'></td>
-				            	<td data-bind='text: purchased'></td>
-				            	<td class="watch" data-bind='text: listed'></td>
-				            	<td class="watch price" data-bind='text: price'></td>
-				            </tr>
-				            <!-- /ko -->
-				        </tbody>
-				    </table>
+					<div data-bind='visible: activeDevices().length === 0'>
+						<h3 class="lead">To activate a listing, set a price and amount you'd like to buy. </h3>
+					</div>
+
+					<div data-bind="visible: activeDevices().length > 0">
+					<table class="table table-condensed">
+						<thead>
+							<td></td>
+							<th>Device + model</th>
+							<th>Carrier</th>
+							<th>Size</th>
+							<th>Color</th>
+							<th colspan="4">Price and quantity</th>
+						</thead>
+						<tr>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th><small>Condition</small></th>
+							<th><small>Sold</small></th>
+							<th><small>Listed</small></th>
+							<th><small>Price</small></th>
+						</tr>
+						<tbody data-bind="template: { name: 'tableTemplate', foreach: activeDevices() }">
+						</tbody>
+					</table>
 
 					<button class="btn btn-default" data-toggle="modal" href="#edit-all-modal">Edit all visible listings</button>
+					</div><!-- hide when there are no listings -->
 				</div><!-- /tab-pane -->
 				<div class="tab-pane" id="profile">
 					<br>
 					<h4>All Listings</h4>
-					<table class="table table-condensed" data-bind='visible: devices().length > 0'>
-					<thead>
-						<td></td>
-						<th>Device + model</th>
-						<th>Carrier</th>
-						<th>Size</th>
-						<th>Color</th>
-						<th colspan="4">Price and quantity</th>
-					</thead>
-					<tr>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th><small>Condition</small></th>
-						<th><small>Sold</small></th>
-						<th><small>Listed</small></th>
-						<th><small>Price</small></th>
-					</tr>
-				        <tbody data-bind='foreach: devices'>
-						<tr class="clickable-row-2" data-toggle="modal" 
-				            	data-bind=	"click: $root.editDevice" href="#edit-row-modal">
-							<td rowspan="4"><!-- @placeholder 60x80 --></td>
-							<td rowspan="4" data-bind='text: name'></td>
-							<td rowspan="4" data-bind='text: carrier'></td>
-							<td rowspan="4" data-bind='text: storage'></td>
-							<td rowspan="4" data-bind='text: color'></td>
-							<!-- ko foreach: prices -->
-							<!-- ko if: $index == 0 -->
-							<td data-bind='text: condition'></td>
-							<td data-bind='text: purchased'></td>
-							<td data-bind='text: listed'></td>
-							<td data-bind='text: price'></td>
-							<!-- /ko -->
-							<!-- /ko -->
-			            </tr>
-						<!-- ko foreach: prices -->
-						<tr class="baby-row" data-toggle="modal" href="#edit-row-modal">
-							<td data-bind='text: condition'></td>
-							<td data-bind='text: purchased'></td>
-							<td class="watch" data-bind='text: listed'></td>
-							<td class="watch price" data-bind='text: price'></td>
+					<table class="table table-condensed" data-bind="">
+						<thead>
+							<td></td>
+							<th>Device + model</th>
+							<th>Carrier</th>
+							<th>Size</th>
+							<th>Color</th>
+							<th colspan="4">Price and quantity</th>
+						</thead>
+						<tr>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th><small>Condition</small></th>
+							<th><small>Sold</small></th>
+							<th><small>Listed</small></th>
+							<th><small>Price</small></th>
 						</tr>
-						<!-- /ko -->
-				        </tbody>
-				    </table>
+						<tbody data-bind="template: { name: 'tableTemplate', foreach: devices() }">
+						</tbody>
+					</table>
 
 					<button class="btn btn-default" data-toggle="modal" href="#edit-all-modal">Edit all visible listings</button>
 				</div><!-- /tab-pane -->
@@ -229,9 +185,51 @@
 		</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
+
+	<script type="text/html" id="tableTemplate">
+		<tr class="clickable-row-2">
+			<td rowspan="4"><!-- @placeholder 60x80 --></td>
+			<td rowspan="4" data-bind='text: name'></td>
+			<td rowspan="4" data-bind='text: carrier'></td>
+			<td rowspan="4" data-bind='text: storage'></td>
+			<td rowspan="4" data-bind='text: color'></td>
+			<!-- ko foreach: prices -->
+			<!-- ko if: $index == 0 -->
+			<td data-bind='text: condition'></td>
+	            	<td data-bind='text: purchased'></td>
+	            	<td data-bind='text: listed'></td>
+	            	<td data-bind='text: price'></td>
+			<!-- /ko -->
+			<!-- /ko -->
+            	</tr>
+		<!-- ko foreach: prices -->
+		<tr class="baby-row">
+			<td data-bind='text: condition'></td>
+			<td data-bind='text: purchased'></td>
+			<td class="watch"><input  type="number" size="4em" max="9999" min="0"  data-bind='value: listed' /></td>
+			<td class="watch price" ><input  type="text" size="4em"  data-bind='value: price' /></td>
+		</tr>
+		<!-- /ko -->
+	</script>
 	
 	<br>
 	<br>	
 	<!-- @include _footer -->
 	</div><!-- /.container -->
+
+	<script>
+	$(document).ready(function(){
+		// hide filters that don't apply
+	  	hide_ipad();
+	  	clickable_rows();
+	  	// hover_rowspan_fix();
+	  	set_tooltips();
+	  	// watch_values();
+	  	// price_link_targets();
+
+		$(".checkbox").change(function(e){
+			check_ipad();
+		});
+	});	
+	</script>
 </body>
