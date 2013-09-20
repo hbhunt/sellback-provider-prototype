@@ -20,6 +20,8 @@
 				<li><a href="#profile" data-toggle="tab">All Listings</a></li>
 			</ul>
 
+			 <pre data-bind="text: ko.toJSON(filteredDevices(), null, 2)"></pre>
+
 			<div class="tab-content">
 				<div class="tab-pane active" id="home">
 					<br>
@@ -97,7 +99,7 @@
 				<div class="form-group" data-bind="foreach: choices">
 					<div class="checkbox" data-bind="attr: { id: id }, changed: $root.setFilter">
 						<label>
-							<input class="checkbox iphone" type="checkbox" data-bind="checked: value">
+							<input class="checkbox filter-checkbox" type="checkbox" data-bind="checked: value, event: { change: $root.updateFilters() }">
 							<span data-bind="text: label"></span>
 					 	</label>
 					</div><!-- /checkbox -->
@@ -220,7 +222,7 @@
 	<script>
 	$(document).ready(function(){
 		// hide filters that don't apply
-	  	hide_ipad();
+	  	// hide_ipad();
 	  	clickable_rows();
 	  	// hover_rowspan_fix();
 	  	set_tooltips();
