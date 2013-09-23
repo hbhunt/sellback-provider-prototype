@@ -71,5 +71,5 @@ img {
 }
 
 .price:before {
-	content: "$";
+	content: "$ ";
 }

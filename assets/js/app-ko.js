@@ -50,7 +50,7 @@ var initialData = [
     { 	name: "iPhone 4", carrier: "AT&T", storage: "64GB",
      	color: "black",  
      	prices: [
-     		{ condition: "Broken", listed : "0", purchased: "4", price: "100" },
+        { condition: "Broken", listed : "0", purchased: "4", price: "100" },
 		{ condition: "Used", listed : "0", purchased: "7", price: "200" },
 		{ condition: "Excellent", listed : "0", purchased: "1", price: "300" }
         ]
@@ -58,7 +58,7 @@ var initialData = [
     { 	name: "iPhone 4", carrier: "AT&T", storage: "32GB",
      	color: "black",  
      	prices: [
-     		{ condition: "Broken", listed : "0", purchased: "3", price: "101" },
+        { condition: "Broken", listed : "0", purchased: "3", price: "101" },
 		{ condition: "Used", listed : "0", purchased: "6", price: "201" },
 		{ condition: "Excellent", listed : "0", purchased: "2", price: "301" }
         ]
@@ -84,40 +84,64 @@ var initialFilters = [
             }
         ]
     },
-    // {   name: "iPhone Model",   
-    //     choices: [
-    //         { label: "iPhone 4", value: true, id: "" },
-    //         { label: "iPhone 4S", value: false, id: "" },
-    //         { label: "iPhone 5", value: false, id: "" }
-    //     ],
-    //     filterOn: "choices"
-    // },
-    // {   name: "Carrier",   
-    //     choices: [
-    //         { label: "Verizon", value: false, id: "" },
-    //         { label: "AT&T", value: true, id: "" },
-    //         { label: "T-Mobile", value: false, id: "" },
-    //         { label: "Sprint", value: false, id: "" },
-    //         { label: "Other / Unlocked", value: false, id: "" }
-    //     ],
-    //     filterOn: "carrier"
-    // },
-    // {   name: "Size",   
-    //     choices: [
-    //         { label: "64GB", value: false, id: "" },
-    //         { label: "32GB", value: false, id: "" },
-    //         { label: "16GB", value: false, id: "" },
-    //         { label: "8GB", value: false, id: "" }
-    //     ],
-    //     filterOn: "size"
-    // },
-    // {   name: "Color",   
-    //     choices: [
-    //         { label: "White", value: false, id: "" },
-    //         { label: "Black", value: false, id: "" }
-    //     ],
-    //     filterOn: "color"
-    // }
+    {   name: "iPhone Model",   
+        choices: [
+            { label: "iPhone 4", value: false, id: "",
+               filterFunction: function(item){ return item.name() === "iPhone 4"; }
+            },
+            { label: "iPhone 4S", value: false, id: "", 
+               filterFunction: function(item){ return item.name() === "iPhone 4S"; }
+            },
+            { label: "iPhone 5", value: false, id: "",
+               filterFunction: function(item){ return item.name() === "iPhone 5"; }
+            }
+        ]
+    },
+    {   name: "Carrier",   
+        choices: [
+            { label: "Verizon", value: false, id: "", 
+                filterFunction: function( item ){ return item.carrier() === "Verizon"; }
+            },
+            { label: "AT&T", value: false, id: "", 
+                filterFunction: function( item ){ return item.carrier() === "AT&T"; }
+            },
+            { label: "T-Mobile", value: false, id: "", 
+                filterFunction: function( item ){ return item.carrier() === "T-Mobile"; }
+            },
+            { label: "Sprint", value: false, id: "", 
+                filterFunction: function( item ){ return item.carrier() === "Sprint"; }
+            },
+            { label: "Other / Unlocked", value: false, id: "",
+                    filterFunction: function( item ){ return item.carrier() === "Other / Unlocked"; }
+            }
+        ]
+    },
+    {   name: "Size",   
+        choices: [
+            { label: "64GB", value: false, id: "", 
+                filterFunction: function( item ){ return item.storage() === "64GB"; } 
+            },
+            { label: "32GB", value: false, id: "", 
+                filterFunction: function( item ){ return item.storage() === "32GB"; } 
+            },
+            { label: "16GB", value: false, id: "", 
+                filterFunction: function( item ){ return item.storage() === "16GB"; } 
+            },
+            { label: "8GB", value: false, id: "", 
+                filterFunction: function( item ){ return item.storage() === "8GB"; } 
+            }
+        ]
+    },
+    {   name: "Color",   
+        choices: [
+            { label: "White", value: false, id: "", 
+                filterFunction: function( item ){ return item.color() === "white"; } 
+            },
+            { label: "Black", value: false, id: "", 
+                filterFunction: function( item ){ return item.color() === "black"; } 
+            }
+        ]
+    }
 ];
 
 var isListed = function(device){
@@ -131,31 +155,34 @@ var isListed = function(device){
  }
 
  var setFilter = function(objects, filter){
-   if(filterAllChecked(filter)){ // don't filter if all / no checkboxes are checked
-      return objects;
-   }
    var filteredObjects = objects;
+   var uniqueObjects = [];
+   var index = {};
+
    ko.utils.arrayForEach(filter.choices(), function(choice){
-        if(choice.value()){
-            filteredObjects = ko.utils.arrayFilter(filteredObjects, choice.filterFunction);
-        }
+      if(choice.value()){
+         filteredObjects = ko.utils.arrayFilter(filteredObjects, choice.filterFunction);
+         ko.utils.arrayForEach(filteredObjects, function(object){
+            if( !index[ object.name() + object.carrier() + object.storage() + object.color() ]){ // a new device! 
+               index[ object.name() + object.carrier() + object.storage() + object.color() ] = true;
+               uniqueObjects.push(object);
+            }
+         });
+         filteredObjects = objects;
+      }
    });
-   return filteredObjects;
+   return uniqueObjects;
  }
 
- var filterAllChecked = function(filter){
+ var filterNoneChecked = function(filter){
    // we'll try to disprove our hypotheses 
-   var allChecked = true;
    var noneChecked = true; 
    ko.utils.arrayForEach(filter.choices(), function(choice){
       if(choice.value()){ // checked
          noneChecked = false;
       }
-      else { // not checked
-         allChecked = false;
-      }
    });
-   return (allChecked || noneChecked); 
+   return (noneChecked); 
  }
 
 var DevicesModel = function(initial_devices, initial_filters) {
@@ -172,19 +199,19 @@ var DevicesModel = function(initial_devices, initial_filters) {
     self.filteredDevices = ko.observable();
 
     self.activeDevices = ko.computed(function(){
-        return ko.utils.arrayFilter(self.devices(), function(device){
+        return ko.utils.arrayFilter(self.filteredDevices(), function(device){
             return isListed(device);
         })
     }, self);
 
     self.commitAll = function() {
       ko.utils.arrayForEach(self.chosenDevice().prices(), function(price) {
-	        price.listed.commit();
-	        price.price.commit();
-    	});
+         price.listed.commit();
+         price.price.commit();
+      });
     };
     self.resetAll = function() {
-	   ko.utils.arrayForEach(self.chosenDevice().prices(), function(price) {
+            ko.utils.arrayForEach(self.chosenDevice().prices(), function(price) {
             price.listed.reset();
             price.price.reset();
     	});
@@ -193,9 +220,11 @@ var DevicesModel = function(initial_devices, initial_filters) {
         self.chosenDevice(device);
     };
     self.updateFilters = function(){
-        var _devices = self.devices();
+         var _devices = self.devices();
          ko.utils.arrayForEach(self.filters(), function(filter) {
-            _devices = setFilter(_devices, filter);
+            if( !filterNoneChecked(filter) ){ // skip when no checkboxes are checked for a given filter
+               _devices = setFilter(_devices, filter);
+            }
          });
          self.filteredDevices(_devices);
     };
@@ -205,6 +234,14 @@ var DevicesModel = function(initial_devices, initial_filters) {
                 choice.value(false);
             });
         });
+    };
+    self.getFakePriceRank = function(price){
+        if(!price) return "IDK LOL";
+        if (parseInt(price.price()) > 200 ){ return "1st"; }
+        if (parseInt(price.price()) > 100 ){ return "2nd"; }
+        if (parseInt(price.price()) > 50 ){ return "5th"; }
+        if (parseInt(price.price()) > 10 ){ return "9th"; }
+        return "unranked";
     };
 }
 

@@ -18,9 +18,7 @@
 			<ul class="nav nav-tabs">
 				<li class="active"><a href="#home" data-toggle="tab">Active Listings</a></li>
 				<li><a href="#profile" data-toggle="tab">All Listings</a></li>
-			</ul>
-
-			 <pre data-bind="text: ko.toJSON(filteredDevices(), null, 2)"></pre>
+			</ul>			 
 
 			<div class="tab-content">
 				<div class="tab-pane active" id="home">
@@ -68,7 +66,7 @@
 							<th>Carrier</th>
 							<th>Size</th>
 							<th>Color</th>
-							<th colspan="4">Price and quantity</th>
+							<th colspan="5">Price and quantity</th>
 						</thead>
 						<tr>
 							<th></th>
@@ -80,8 +78,9 @@
 							<th><small>Sold</small></th>
 							<th><small>Listed</small></th>
 							<th><small>Price</small></th>
+							<th><small>Rank on Site</small></th>
 						</tr>
-						<tbody data-bind="template: { name: 'tableTemplate', foreach: devices() }">
+						<tbody data-bind="template: { name: 'tableTemplate', foreach: filteredDevices() }">
 						</tbody>
 					</table>
 
@@ -107,7 +106,7 @@
 			</form>
 			<!-- /ko -->
 
-			<a data-bind="click: clearFilters">Clear Filters</a>
+			<button class="btn btn-link" data-bind="click: clearFilters">Clear Filters</button>
 
 		</div><!-- right column -->
 	</div>
@@ -135,10 +134,10 @@
 					</div>
 				</form>
 				
-		  	</div><!-- /modal-body -->
-		  	<div class="modal-footer">
-		    	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		    	<button type="button" class="btn btn-primary" data-dismiss="modal" data-bind="click: $root.commitAll">Save changes</button>
+			</div><!-- /modal-body -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal" data-bind="click: $root.commitAll">Save changes</button>
 			</div>
 		</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
@@ -153,18 +152,18 @@
 				<h4 class="modal-title">All Listings in Table</h4>
 			</div>
 			<div class="modal-body">
-		  		<!-- @include _modal-edit-form.html -->
+				<!-- @include _modal-edit-form.html -->
 				<p>This will change the pricing and quantities available for:</p>
 				<ul>
 					<li>iPhone 4 AT&amp;T 64GB Black</li>
 					<li>iPhone 4 AT&amp;T 32GB Black</li>
 					<li>iPhone 4 AT&amp;T 16GB Black</li>
 				</ul>
-		  	</div>
-		  <div class="modal-footer">
-		    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		    <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
-		  </div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+			</div>
 		</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
@@ -175,15 +174,15 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		    	<h4 class="modal-title">Add an Item</h4>
-		  </div>
-		  <div class="modal-body">
+				<h4 class="modal-title">Add an Item</h4>
+			</div>
+			<div class="modal-body">
 				[Picker]
-		  </div>
-		  <div class="modal-footer">
-		    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		    <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
-		  </div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+			</div>
 		</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
@@ -198,18 +197,31 @@
 			<!-- ko foreach: prices -->
 			<!-- ko if: $index == 0 -->
 			<td data-bind='text: condition'></td>
-	            	<td data-bind='text: purchased'></td>
-	            	<td data-bind='text: listed'></td>
-	            	<td data-bind='text: price'></td>
+			<td data-bind='text: purchased'></td>
+			<td data-bind='text: listed'></td>
+			<td data-bind='text: price'></td>
 			<!-- /ko -->
 			<!-- /ko -->
-            	</tr>
+		</tr>
 		<!-- ko foreach: prices -->
 		<tr class="baby-row">
 			<td data-bind='text: condition'></td>
 			<td data-bind='text: purchased'></td>
-			<td class="watch"><input  type="number" size="4em" max="9999" min="0"  data-bind='value: listed' /></td>
-			<td class="watch price" ><input  type="text" size="4em"  data-bind='value: price' /></td>
+			<td>
+				<input  type="number" size="4em" max="9999" min="0"  data-bind='value: listed' />
+			</td>
+			<td class="price">
+				<input  type="text" size="4em"  data-bind='value: price' />
+			</td>
+
+			<td><span class="" data-bind="text: $root.getFakePriceRank($data), css: {
+				'label': true, 
+				'label-success': $root.getFakePriceRank($data) === '1st',
+				'label-info': $root.getFakePriceRank($data) === '2nd',
+				'label-warning': $root.getFakePriceRank($data) === '5th' || $root.getFakePriceRank($data) === '9th',
+				'label-danger': $root.getFakePriceRank($data) === 'unranked'
+			}"></span>
+			</td>
 		</tr>
 		<!-- /ko -->
 	</script>
@@ -222,12 +234,11 @@
 	<script>
 	$(document).ready(function(){
 		// hide filters that don't apply
-	  	// hide_ipad();
-	  	clickable_rows();
-	  	// hover_rowspan_fix();
-	  	set_tooltips();
-	  	// watch_values();
-	  	// price_link_targets();
+		clickable_rows();
+		// hover_rowspan_fix();
+		set_tooltips();
+		// watch_values();
+		// price_link_targets();
 
 		$(".checkbox").change(function(e){
 			check_ipad();
