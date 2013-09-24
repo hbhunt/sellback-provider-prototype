@@ -16,12 +16,47 @@
 		<div class="col-md-9" id="content-col">
 
 			<ul class="nav nav-tabs">
-				<li class="active"><a href="#home" data-toggle="tab">Active Listings</a></li>
-				<li><a href="#profile" data-toggle="tab">All Listings</a></li>
+				<li class="active"><a href="#all-listings" data-toggle="tab">All Listings</a></li>
+				<li>
+					<a href="#active-listings" data-toggle="tab">
+						Active Listings 
+						<span class="label label-default" data-bind="text: activeDevices().length">0</span>
+					</a>
+				</li>
 			</ul>			 
 
 			<div class="tab-content">
-				<div class="tab-pane active" id="home">
+				<div class="tab-pane active" id="all-listings">
+					<br>
+					<h4>All Listings</h4>
+					<table class="table table-condensed" data-bind="">
+						<thead>
+							<td></td>
+							<th>Device + model</th>
+							<th>Carrier</th>
+							<th>Size</th>
+							<th>Color</th>
+							<th colspan="5">Price and quantity</th>
+						</thead>
+						<tr>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th><small>Condition</small></th>
+							<th><small>Sold</small></th>
+							<th><small>Listed</small></th>
+							<th><small>Price</small></th>
+							<th><small>Rank on Site</small></th>
+						</tr>
+						<tbody data-bind="template: { name: 'tableTemplate', foreach: filteredDevices() }">
+						</tbody>
+					</table>
+
+					<button class="btn btn-default" data-toggle="modal" href="#edit-all-modal">Edit all visible listings</button>
+				</div><!-- /tab-pane -->
+				<div class="tab-pane" id="active-listings">
 					<br>
 					<h4>Active Listings</h4>
 					<div data-bind='visible: activeDevices().length === 0'>
@@ -56,36 +91,7 @@
 					<button class="btn btn-default" data-toggle="modal" href="#edit-all-modal">Edit all visible listings</button>
 					</div><!-- hide when there are no listings -->
 				</div><!-- /tab-pane -->
-				<div class="tab-pane" id="profile">
-					<br>
-					<h4>All Listings</h4>
-					<table class="table table-condensed" data-bind="">
-						<thead>
-							<td></td>
-							<th>Device + model</th>
-							<th>Carrier</th>
-							<th>Size</th>
-							<th>Color</th>
-							<th colspan="5">Price and quantity</th>
-						</thead>
-						<tr>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th><small>Condition</small></th>
-							<th><small>Sold</small></th>
-							<th><small>Listed</small></th>
-							<th><small>Price</small></th>
-							<th><small>Rank on Site</small></th>
-						</tr>
-						<tbody data-bind="template: { name: 'tableTemplate', foreach: filteredDevices() }">
-						</tbody>
-					</table>
-
-					<button class="btn btn-default" data-toggle="modal" href="#edit-all-modal">Edit all visible listings</button>
-				</div><!-- /tab-pane -->
+				
 			</div><!-- /tab-content -->
 
 			
@@ -99,7 +105,8 @@
 					<div class="checkbox" data-bind="attr: { id: id }, changed: $root.setFilter">
 						<label>
 							<input class="checkbox filter-checkbox" type="checkbox" data-bind="checked: value, event: { change: $root.updateFilters() }">
-							<span data-bind="text: label"></span>
+							<span data-bind="text: label"></span> &mdash; 
+							<span class="text-muted" data-bind="text: count"></span>
 					 	</label>
 					</div><!-- /checkbox -->
 				</div><!-- /form group -->
