@@ -50,7 +50,9 @@
 							<th><small>Price</small></th>
 							<th><small>Rank on Site</small></th>
 						</tr>
-						<tbody data-bind="template: { name: 'tableTemplate', foreach: filteredDevices() }">
+						<tbody data-bind="template: { 
+							name: 'tableTemplate', 
+							foreach: filteredDevices() }">
 						</tbody>
 					</table>
 
@@ -194,6 +196,7 @@
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
 
+	<!-- Table Row Template -->
 	<script type="text/html" id="tableTemplate">
 		<tr class="clickable-row-2">
 			<td rowspan="4"><!-- @placeholder 60x80 --></td>
@@ -223,10 +226,10 @@
 
 			<td><span class="" data-bind="text: $root.getFakePriceRank($data), css: {
 				'label': true, 
-				'label-success': $root.getFakePriceRank($data) === '1st',
-				'label-info': $root.getFakePriceRank($data) === '2nd',
-				'label-warning': $root.getFakePriceRank($data) === '5th' || $root.getFakePriceRank($data) === '9th',
-				'label-danger': $root.getFakePriceRank($data) === 'unranked'
+				'label-success': $root.getFakePriceRank($data) === 'Competitive',
+				'label-info': $root.getFakePriceRank($data) === 'Competitive',
+				'label-warning': $root.getFakePriceRank($data) === 'Average',
+				'label-danger': $root.getFakePriceRank($data) === 'Below Average'
 			}"></span>
 			</td>
 		</tr>

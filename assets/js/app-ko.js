@@ -248,10 +248,10 @@ var DevicesModel = function(initial_devices, initial_filters) {
 	self.getFakePriceRank = function(price){
 		if(!price) return "IDK LOL";
 		_priceAsInt = parseInt(price.price());
-		if( _priceAsInt > 200 ){ return "1st"; }
-		if( _priceAsInt > 100 ){ return "2nd"; }
-		if( _priceAsInt > 50 ){ return "5th"; }
-		if( _priceAsInt > 10 ){ return "9th"; }
+		if( _priceAsInt > 200 ){ return "Competitive"; }
+		if( _priceAsInt > 100 ){ return "Competitive"; }
+		if( _priceAsInt > 50 ){ return "Average"; }
+		if( _priceAsInt > 10 ){ return "Below Average"; }
 		if( _priceAsInt > 1 ){ return "unrakned"; }
 		return "";
 	};
