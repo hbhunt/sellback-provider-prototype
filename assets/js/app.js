@@ -136,6 +136,38 @@ var price_link_targets = function() {
 	});
 }
 
+var from_to_date_picker = function(fromField, toField){
+	var _format = 'MM dd, yy';
+	$( fromField ).datepicker({
+		changeMonth: true,
+		numberOfMonths: 1,
+		dateFormat: _format,
+		onClose: function( selectedDate ) {
+			$( toField ).datepicker( "option", "minDate", selectedDate );
+		}
+	});
+	$( toField ).datepicker({
+		defaultDate: "+1w",
+		changeMonth: true,
+		numberOfMonths: 1,
+		dateFormat: _format,
+		onClose: function( selectedDate ) {
+			$( fromField ).datepicker( "option", "maxDate", selectedDate );
+		}
+	});
+}
+
+var table_row_hover_action = function(){
+	$('.table-row-hover-action').children().hide();
+	$('.table-row-hover-action').parent().hover(
+	function(){ // mouse in
+		$(this).find('.table-row-hover-action').children().show();
+	},
+	function(){ // mouse out
+		$(this).find('.table-row-hover-action').children().hide();
+	}); // watch the <tr> around the <td>
+}
+
 // jquery plugin to watch for changes to arbitrary dom elements
 jQuery.fn.contentChange = function(callback){
     var elms = jQuery(this);

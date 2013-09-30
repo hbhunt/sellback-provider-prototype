@@ -1,0 +1,43 @@
+<!-- $title Valore Sellback&mdash;Provider -->
+<!-- @include _header -->
+<body>
+
+	<!-- @include _nav.html -->
+
+	<div class="container">
+
+	<h1>Process Orders</h1>
+
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="#summary" data-toggle="tab">Summary</a></li>
+		<li><a href="#checkin" data-toggle="tab">Check In</a></li>
+		<li><a href="#requote" data-toggle="tab">Requote</a></li>
+		<li><a href="#allorders" data-toggle="tab">All Orders</a></li>
+	</ul>
+
+	<div class="tab-content">
+		<div class="tab-pane active" id="summary"><!-- @include _process-summary-tab.html --></div>
+		<div class="tab-pane" id="checkin"><!-- @include _process-checkin-tab.html --></div>
+		<div class="tab-pane" id="requote"><!-- @include _process-requote-tab.html --></div>
+		<div class="tab-pane" id="allorders"><!-- @include _process-all-tab.html --></div>
+	</div>
+	
+	<br>
+	<br>	
+	<!-- @include _footer -->
+	</div><!-- /.container -->
+
+	<script>
+	$(document).ready(function(){
+		// make table rows work like links with href attribute
+		clickable_rows();
+		from_to_date_picker($('#checkin-start-date'), $('#checkin-end-date'));
+
+		// make nav drop-down appear active if the current page is a child link
+		$('.current').addClass('active');
+
+		// row hover thing?
+		table_row_hover_action();
+	});	
+	</script>
+</body>

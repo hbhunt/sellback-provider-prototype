@@ -1,0 +1,228 @@
+<h3>Orders to Requote</h3>
+
+<div class="row">
+	<div class="col-md-6">
+		<form class="form-inline" role="form">
+			<div class="form-group">
+				<label class="" for="exampleInputEmail2">Start Date</label>
+				<input type="text" class="form-control" id="checkin-start-date" placeholder="September 1, 2013">
+			</div>
+			<div class="form-group">
+				<label class="" for="exampleInputPassword2">End Date</label>
+				<input type="text" class="form-control" id="checkin-end-date" placeholder="September 8, 2013">
+			</div>
+		</form>
+	</div>
+	<div class="col-md-4">
+		<form class="form" role="form">
+			<div class="form-group">
+				<label class="" for="exampleInputEmail2">Order Number of Customer Name</label>
+				<input type="email" class="form-control" id="exampleInputEmail2" placeholder="123456789012 or Johnny Appleseed">
+			</div>
+		</form>
+	</div>
+	<div class="col-md-2">
+		
+	</div>
+</div>
+
+<br><br>
+
+<table class="table table-condensed table-hover">
+	<thead>
+		<th>Date</th>
+		<th>Order Number</th>
+		<!-- <th colspan="5">Item</th> -->
+		<th>Price</th>
+		<th>Customer Name</th>
+		<th>Shipping Address</th>
+		<th>Status</th>
+		<th>Requote Order</th>
+	</thead>
+	<tbody>
+		<tr class="clickable-row" data-toggle="modal" href="#requote-modal">
+			<td>9/1/2013</td><!-- date -->
+			<td>1234567890123</td><!-- order # -->
+			<!-- <td>1234567890</td> -->
+			<!-- <td>iPhone 4S</td> -->
+			<!-- <td>Verizon</td> -->
+			<!-- <td>32 GB</td> -->
+			<!-- <td>White</td> -->
+			<!-- <td>Broken</td> -->
+			<td>$123.45</td><!-- price -->
+			<td>Johnny Appleseed</td><!-- name -->
+			<td>
+				268 Summer Street, Suite 502<br>
+				Boston, MA 02125
+			</td><!-- address -->
+			<td>Marked for Requote</td><!-- status -->
+			<td class="table-row-hover-action"><a href="#">requote</a></td><!-- action -->
+		</tr>
+		<tr>
+			<td>&hellip;</td><!-- date -->
+			<td>&hellip;</td><!-- order # -->
+			<td>&hellip;</td><!-- price -->
+			<td>&hellip;</td><!-- name -->
+			<td>&hellip;</td><!-- address -->
+			<td>&hellip;</td><!-- status -->
+			<td class="table-row-hover-action"><a href="#">requote</a></td><!-- action -->
+		</tr>
+		<tr>
+			<td>&hellip;</td><!-- date -->
+			<td>&hellip;</td><!-- order # -->
+			<td>&hellip;</td><!-- price -->
+			<td>&hellip;</td><!-- name -->
+			<td>&hellip;</td><!-- address -->
+			<td>&hellip;</td><!-- status -->
+			<td class="table-row-hover-action"><a href="#">requote</a></td><!-- action -->
+		</tr>
+	</tbody>
+</table>
+
+<h3>Requotes waiting for customer response</h3>
+
+<table class="table table-condensed table-hover">
+	<thead>
+		<th>Order Date</th>
+		<th>Order Number</th>
+		<th>Price</th>
+		<th>Requote Date</th>
+		<th>Requote Price</th>
+		<th>Status</th>
+	</thead>
+	<tbody>
+		<tr>
+			<td>9/1/2013</td><!-- date -->
+			<td>1234567890123</td><!-- order # -->
+			<td>$123.45</td><!-- price -->
+			<td>9/6/2013</td><!-- requote date -->
+			<td>$80.00</td><!-- requote price -->
+			<td>Requote Approval Pending</td><!-- status -->
+		</tr>
+		<tr>
+			<td>&hellip;</td><!-- date -->
+			<td>&hellip;</td><!-- order # -->
+			<td>&hellip;</td><!-- price -->
+			<td>&hellip;</td><!-- requote date -->
+			<td>&hellip;</td><!-- requote price -->
+			<td>&hellip;</td><!-- status -->
+		</tr>
+		<tr>
+			<td>&hellip;</td><!-- date -->
+			<td>&hellip;</td><!-- order # -->
+			<td>&hellip;</td><!-- price -->
+			<td>&hellip;</td><!-- requote date -->
+			<td>&hellip;</td><!-- requote price -->
+			<td>&hellip;</td><!-- status -->
+		</tr>
+	</tbody>
+</table>
+
+<h3>Declined Requotes / Devices to return to customers</h3>
+
+<table class="table table-condensed table-hover">
+	<thead>
+		<th>Order Date</th>
+		<th>Order Number</th>
+		<th>Requote Response Date</th>
+		<th>Customer Name</th>
+		<th>Customer Address</th>
+		<th>Status</th>
+	</thead>
+	<tbody>
+		<tr>
+			<td>9/1/2013</td><!-- date -->
+			<td>1234567890123</td><!-- order# -->
+			<td>9/9/2013</td><!-- rejectdate -->
+			<td>Jane Appleseed</td><!--  name -->
+			<td>
+				268 Summer Street, Suite 502<br>
+				Boston, MA 02125
+			</td><!-- address -->
+			<td>Requote declined</td><!-- status -->
+		</tr>
+		<tr>
+			<td>&hellip;</td><!-- date -->
+			<td>&hellip;</td><!-- order# -->
+			<td>&hellip;</td><!-- rejectdate -->
+			<td>&hellip;</td><!--  name -->
+			<td>&hellip;</td><!-- address -->
+			<td>&hellip;</td><!-- status -->
+		</tr>
+		<tr>
+			<td>&hellip;</td><!-- date -->
+			<td>&hellip;</td><!-- order# -->
+			<td>&hellip;</td><!-- rejectdate -->
+			<td>&hellip;</td><!--  name -->
+			<td>&hellip;</td><!-- address -->
+			<td>&hellip;</td><!-- status -->
+		</tr>
+	</tbody>
+</table>
+
+<div class="modal fade" id="requote-modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Check in Order [order number]</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-4">
+						<!-- @placeholder 150x300 iphone -->
+						<p class="text-center">UPC <strong>123456789012</strong></p>
+					</div>
+					<div class="col-md-8">
+						<h3>Device</h3>
+						<table class="table">
+							<tr>
+								<td>Device</td>
+								<td><strong>iPhone 4S</strong></td>
+							</tr>
+							<tr>
+								<td>Carrier</td>
+								<td><strong>Verizon</strong></td>
+							</tr>
+							<tr>
+								<td>Size</td>
+								<td><strong>32 GB</strong></td>
+							</tr>
+							<tr>
+								<td>Color</td>
+								<td><strong>White</strong></td>
+							</tr>
+							<tr>
+								<td>Condition</td>
+								<td><strong>Used</strong></td>
+							</tr>
+						</table>
+						<h3>Customer</h3>
+						<table class="table">
+							<tr>
+								<td>Name</td>
+								<td><strong>Johnny Appleseed</strong></td>
+							</tr>
+						</table>
+						<h3>Requote</h3>
+						<form role="form" class="form">
+							<div class="form-group">
+								<label class="" for="exampleInputPassword2">New Price</label>
+								<input type="text" class="form-control" size="7em" id="requote-price" placeholder="$12.34">
+							</div>
+							<div class="form-group">
+								<label class="" for="exampleInputPassword2">Reason	</label>
+								<textarea class="form-control" id="requote-text" rows="3" placeholder="Dear Customer, The phone you sent &hellip;"></textarea>
+							</div>
+							<button class="btn btn-primary">Send Requote</button>
+						</form>
+					</div>
+				</div><!-- /row -->
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Next Order</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
