@@ -160,12 +160,13 @@ var from_to_date_picker = function(fromField, toField){
 var table_row_hover_action = function(){
 	$('.table-row-hover-action').children().hide();
 	$('.table-row-hover-action').parent().hover(
-	function(){ // mouse in
-		$(this).find('.table-row-hover-action').children().show();
-	},
-	function(){ // mouse out
-		$(this).find('.table-row-hover-action').children().hide();
-	}); // watch the <tr> around the <td>
+		function(){ // mouse in
+			$(this).find('.table-row-hover-action').children().show();
+		},
+		function(){ // mouse out
+			$(this).find('.table-row-hover-action').children().hide();
+		}
+	); // watch the <tr> around the <td>
 }
 
 // jquery plugin to watch for changes to arbitrary dom elements
