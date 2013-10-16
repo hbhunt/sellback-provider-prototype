@@ -1,4 +1,4 @@
-<h3>Orders to Requote</h3>
+<h3>Items to Requote</h3>
 
 <div class="row">
 	<div class="col-md-6">
@@ -28,33 +28,20 @@
 
 <br><br>
 
+<h3>Items awaiting requote</h3>
 <table class="table table-condensed table-hover">
 	<thead>
-		<th>Date</th>
 		<th>Order Number</th>
-		<!-- <th colspan="5">Item</th> -->
-		<th>Price</th>
-		<th>Customer Name</th>
-		<th>Shipping Address</th>
+		<th>Date</th>
+		<th>Item Price</th>
 		<th>Status</th>
-		<th>Requote Order</th>
+		<th>Requote Item</th>
 	</thead>
 	<tbody>
 		<tr class="clickable-row" data-toggle="modal" href="#requote-modal">
-			<td>9/1/2013</td><!-- date -->
 			<td>1234567890123</td><!-- order # -->
-			<!-- <td>1234567890</td> -->
-			<!-- <td>iPhone 4S</td> -->
-			<!-- <td>Verizon</td> -->
-			<!-- <td>32 GB</td> -->
-			<!-- <td>White</td> -->
-			<!-- <td>Broken</td> -->
+			<td>9/1/2013</td><!-- date -->
 			<td>$123.45</td><!-- price -->
-			<td>Johnny Appleseed</td><!-- name -->
-			<td>
-				268 Summer Street, Suite 502<br>
-				Boston, MA 02125
-			</td><!-- address -->
 			<td>Marked for Requote</td><!-- status -->
 			<td class="table-row-hover-action"><a href="#">requote</a></td><!-- action -->
 		</tr>
@@ -63,8 +50,6 @@
 			<td>&hellip;</td><!-- order # -->
 			<td>&hellip;</td><!-- price -->
 			<td>&hellip;</td><!-- name -->
-			<td>&hellip;</td><!-- address -->
-			<td>&hellip;</td><!-- status -->
 			<td class="table-row-hover-action"><a href="#">requote</a></td><!-- action -->
 		</tr>
 		<tr>
@@ -72,8 +57,6 @@
 			<td>&hellip;</td><!-- order # -->
 			<td>&hellip;</td><!-- price -->
 			<td>&hellip;</td><!-- name -->
-			<td>&hellip;</td><!-- address -->
-			<td>&hellip;</td><!-- status -->
 			<td class="table-row-hover-action"><a href="#">requote</a></td><!-- action -->
 		</tr>
 	</tbody>
@@ -83,8 +66,8 @@
 
 <table class="table table-condensed table-hover">
 	<thead>
-		<th>Order Date</th>
 		<th>Order Number</th>
+		<th>Order Date</th>
 		<th>Price</th>
 		<th>Requote Date</th>
 		<th>Requote Price</th>
@@ -92,8 +75,8 @@
 	</thead>
 	<tbody>
 		<tr>
-			<td>9/1/2013</td><!-- date -->
 			<td>1234567890123</td><!-- order # -->
+			<td>9/1/2013</td><!-- date -->
 			<td>$123.45</td><!-- price -->
 			<td>9/6/2013</td><!-- requote date -->
 			<td>$80.00</td><!-- requote price -->
@@ -122,8 +105,8 @@
 
 <table class="table table-condensed table-hover">
 	<thead>
-		<th>Order Date</th>
 		<th>Order Number</th>
+		<th>Order Date</th>
 		<th>Requote Response Date</th>
 		<th>Customer Name</th>
 		<th>Customer Address</th>
@@ -131,8 +114,8 @@
 	</thead>
 	<tbody>
 		<tr>
-			<td>9/1/2013</td><!-- date -->
 			<td>1234567890123</td><!-- order# -->
+			<td>9/1/2013</td><!-- date -->
 			<td>9/9/2013</td><!-- rejectdate -->
 			<td>Jane Appleseed</td><!--  name -->
 			<td>
@@ -169,11 +152,7 @@
 			</div>
 			<div class="modal-body">
 				<div class="row">
-					<div class="col-md-4">
-						<!-- @placeholder 150x300 iphone -->
-						<p class="text-center">UPC <strong>123456789012</strong></p>
-					</div>
-					<div class="col-md-8">
+					<div class="col-md-6">
 						<h3>Device</h3>
 						<table class="table">
 							<tr>
@@ -196,6 +175,10 @@
 								<td>Condition</td>
 								<td><strong>Used</strong></td>
 							</tr>
+							<tr>
+								<td>Order SKU</td>
+								<td><strong>123456789012</strong></td>
+							</tr>
 						</table>
 						<h3>Customer</h3>
 						<table class="table">
@@ -204,6 +187,8 @@
 								<td><strong>Johnny Appleseed</strong></td>
 							</tr>
 						</table>
+					</div>
+					<div class="col-md-6">
 						<h3>Requote</h3>
 						<form role="form" class="form">
 							<div class="form-group">
@@ -212,13 +197,42 @@
 							</div>
 							<div class="form-group">
 								<label class="" for="exampleInputPassword2">Reason	</label>
-								<textarea class="form-control" id="requote-text" rows="3" placeholder="Dear Customer, The phone you sent &hellip;"></textarea>
+								<div class="radio">
+									<label>
+										<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+										Item did not match description.
+									</label>
+								</div>
+								<div class="radio">
+									<label>
+										<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+										Wrong condition.
+									</label>
+								</div>
 							</div>
 							<button class="btn btn-primary">Send Requote</button>
 						</form>
 					</div>
-				</div><!-- /row -->
+				</div><!-- /row? -->
 			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Next Item</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="add-item-modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Add Item to order?</h4>
+			</div>
+			<div class="modal-body">
+				
+			</div><!-- /modal-body -->
 			<div class="modal-footer">
 				<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">Next Order</button>

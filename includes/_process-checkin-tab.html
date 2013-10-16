@@ -27,7 +27,7 @@
 </div>
 
 <div data-bind="with: chosenOrder">
-	<h3>Items in order <span data-bind="text: orderNumber"></span></h3>
+	<h3>Items in order <span data-bind="text: orderNumber"></span> <small><a class="btn btn-sm btn-default" href="#" data-bind="click: $root.clearChosenOrder">Cancel</a></small></h3>
 	<table class="table table-fat">
 		<thead>
 			<th>SKU</th>

@@ -109,6 +109,9 @@ var OrdersModel = function(initial_orders) {
 	self.approveCheckin = function(item){
 		item.status("Approved");	
 	};
+	self.clearChosenOrder = function(){
+		self.chosenOrder("");
+	};
 }
 
 // ====================
