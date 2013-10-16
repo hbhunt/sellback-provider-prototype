@@ -39,6 +39,11 @@
 
 		// row hover thing?
 		table_row_hover_action();
+		$('#checkin').on('mouseenter mouseleave', '.table-row-show-on-hover', 
+			function(){ // mouse in
+				$(this).find('.show-on-hover').children().toggleClass('hidden');
+			}
+		);
 	});	
 	</script>
 </body>

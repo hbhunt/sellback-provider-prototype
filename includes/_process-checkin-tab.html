@@ -28,7 +28,7 @@
 
 <div data-bind="with: chosenOrder">
 	<h3>Items in order <span data-bind="text: orderNumber"></span></h3>
-	<table class="table">
+	<table class="table table-fat">
 		<thead>
 			<th>SKU</th>
 			<th>Device</th>
@@ -37,20 +37,24 @@
 			<th>Color</th>
 			<th>Condition</th>
 			<th>Status</th>
-			<th>Check in</th>
+			<th class="col-md-3">Check in</th>
 		</thead>
 		<tbody data-bind="foreach: items">
-			<td data-bind="text: sku"></td>
-			<td data-bind="text: name"></td>
-			<td data-bind="text: carrier"></td>
-			<td data-bind="text: size"></td>
-			<td data-bind="text: color"></td>
-			<td data-bind="text: condition"></td>
-			<td data-bind="text: status"></td>
-			<td>
-				<button class="btn btn-sm btn-warning" data-bind="click: $root.markForRequote">Mark for Requote</button> 
-				<button class="btn btn-sm btn-primary" data-bind="click: $root.approveCheckin">Approve for payment</button>
-			</td>
+			<tr class="table-row-show-on-hover">
+				<td data-bind="text: sku"></td>
+				<td data-bind="text: name"></td>
+				<td data-bind="text: carrier"></td>
+				<td data-bind="text: size"></td>
+				<td data-bind="text: color"></td>
+				<td data-bind="text: condition"></td>
+				<td data-bind="text: status"></td>
+				<td class="show-on-hover">
+					<div class="hidden">
+						<button class="btn btn-xs btn-warning" data-bind="click: $root.markForRequote">Mark for Requote</button> 
+						<button class="btn btn-xs btn-primary" data-bind="click: $root.approveCheckin">Approve for payment</button>
+					</div>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 </div>
