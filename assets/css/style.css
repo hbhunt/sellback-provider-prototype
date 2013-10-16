@@ -73,3 +73,7 @@ img {
 .price:before {
 	content: "$ ";
 }
+
+.table.table-fat > tbody > tr {
+	height: 40px;
+}

@@ -257,5 +257,9 @@ var DevicesModel = function(initial_devices, initial_filters) {
 	};
 }
 
+// ====================
+// Initialization
+// ====================
+
 var devicesModel = new DevicesModel(initialData, initialFilters);
 ko.applyBindings(devicesModel);
