@@ -1,6 +1,14 @@
 <h3>Orders to Process</h3>
 
 <div class="row">
+	<div class="col-md-4">
+		<form class="form" role="form">
+			<div class="form-group">
+				<label class="" for="exampleInputEmail2">Order Number of Customer Name</label>
+				<input type="email" class="form-control" id="exampleInputEmail2" placeholder="123456789012 or Johnny Appleseed">
+			</div>
+		</form>
+	</div>
 	<div class="col-md-6">
 		<form class="form-inline" role="form">
 			<div class="form-group">
@@ -10,14 +18,6 @@
 			<div class="form-group">
 				<label class="" for="exampleInputPassword2">End Date</label>
 				<input type="text" class="form-control" id="checkin-end-date" placeholder="September 8, 2013">
-			</div>
-		</form>
-	</div>
-	<div class="col-md-4">
-		<form class="form" role="form">
-			<div class="form-group">
-				<label class="" for="exampleInputEmail2">Order Number of Customer Name</label>
-				<input type="email" class="form-control" id="exampleInputEmail2" placeholder="123456789012 or Johnny Appleseed">
 			</div>
 		</form>
 	</div>
@@ -49,10 +49,7 @@
 				<td data-bind="text: condition"></td>
 				<td data-bind="text: status"></td>
 				<td class="show-on-hover">
-					<div class="hidden">
-						<button class="btn btn-xs btn-warning" data-bind="click: $root.markForRequote">Mark for Requote</button> 
-						<button class="btn btn-xs btn-primary" data-bind="click: $root.approveCheckin">Approve for payment</button>
-					</div>
+					<button class="btn btn-xs btn-default" data-bind="click: $root.markForRequote">Mark for Requote</button>  &nbsp; <button class="btn btn-xs btn-primary" data-bind="click: $root.approveCheckin">Approve for payment</button>
 				</td>
 			</tr>
 		</tbody>
@@ -71,7 +68,7 @@
 		<th>Process Order</th>
 	</thead>
 	<tbody data-bind="foreach: awaitingCheckinOrders">
-		<tr data-bind='click: $root.chooseOrder, css: { active: $root.chosenOrder() == $data }'>
+		<tr class="table-row-show-on-hover" data-bind='click: $root.chooseOrder, css: { active: $root.chosenOrder() == $data }'>
 			<td data-bind='text: orderNumber'></td>
 			<td data-bind='text: date'></td>
 			<td data-bind='text: items().length'></td>
@@ -80,25 +77,8 @@
 			<td>
 				<span data-bind="text: $root.numberForCheckin($data)"></span> of <span data-bind="text: items().length"></span> Awaiting Checkin
 			</td>
-			<td class="table-row-hover-action"><a class="">Check In</a></td>
+			<!-- <td class="table-row-hover-action"><a class="">Check In</a></td> -->
+			<td class="show-on-hover"><a>Check In</a></td>
 		</tr>
-		<!-- <tr class="clickable-row" data-toggle="modal" href="#check-in-modal">
-			<td>1234567890123</td>
-			<td>9/1/2013</td>
-			<td>2</td>
-			<td>Johnny Appleseed</td>
-			<td>$123.45</td>
-			<td>Awating Check-in</td>
-			<td class="table-row-hover-action"><a class="">Check In</a></td>
-		</tr>
-		<tr>
-			<td>&hellip;</td>
-			<td>&hellip;</td>
-			<td>&hellip;</td>
-			<td>&hellip;</td>
-			<td>&hellip;</td>
-			<td>&hellip;</td>
-			<td class="table-row-hover-action"><a href="#">Check in</a></td>
-		</tr>-->
 	</tbody>
 </table>

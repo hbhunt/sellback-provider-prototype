@@ -77,3 +77,17 @@ img {
 .table.table-fat > tbody > tr {
 	height: 40px;
 }
+
+/*  */
+td.show-on-hover > * {
+	/*display: none;*/
+	opacity: .25;
+	transition: opacity .1s ease-in-out;
+   -moz-transition: opacity .2s ease-in-out;
+   -webkit-transition: opacity .2s ease-in-out;
+}
+
+tr.table-row-show-on-hover:hover > td.show-on-hover > *{
+	/*display: inline-block;*/
+	opacity: 1;
+}
