@@ -33,6 +33,7 @@
 	<thead>
 		<th>Order Number</th>
 		<th>Date</th>
+		<th>Item Details</th>
 		<th>Item Price</th>
 		<th>Status</th>
 		<th>Requote Item</th>
@@ -41,23 +42,26 @@
 		<tr class="clickable-row table-row-show-on-hover" data-toggle="modal" href="#requote-modal">
 			<td>1234567890123</td><!-- order # -->
 			<td>9/1/2013</td><!-- date -->
+			<td>iPhone 4S Verizon 64GB White</td>
 			<td>$123.45</td><!-- price -->
 			<td>Marked for Requote</td><!-- status -->
-			<td class="show-on-hover"><a href="#">requote</a></td><!-- action -->
+			<td class="show-on-hover"><a href="#">Requote</a></td><!-- action -->
 		</tr>
 		<tr class="table-row-show-on-hover">
 			<td>&hellip;</td><!-- date -->
 			<td>&hellip;</td><!-- order # -->
 			<td>&hellip;</td><!-- price -->
+			<td>&hellip;</td><!-- details -->
 			<td>&hellip;</td><!-- name -->
-			<td class="show-on-hover"><a href="#">requote</a></td><!-- action -->
+			<td class="show-on-hover"><a href="#">Requote</a></td><!-- action -->
 		</tr>
 		<tr class="table-row-show-on-hover">
 			<td>&hellip;</td><!-- date -->
 			<td>&hellip;</td><!-- order # -->
 			<td>&hellip;</td><!-- price -->
+			<td>&hellip;</td><!-- details -->
 			<td>&hellip;</td><!-- name -->
-			<td class="show-on-hover"><a href="#">requote</a></td><!-- action -->
+			<td class="show-on-hover"><a href="#">Requote</a></td><!-- action -->
 		</tr>
 	</tbody>
 </table>
@@ -111,9 +115,10 @@
 		<th>Customer Name</th>
 		<th>Customer Address</th>
 		<th>Status</th>
+		<th>Mark as Sent</th>
 	</thead>
 	<tbody>
-		<tr>
+		<tr class="table-row-show-on-hover">
 			<td>1234567890123</td><!-- order# -->
 			<td>9/1/2013</td><!-- date -->
 			<td>9/9/2013</td><!-- rejectdate -->
@@ -123,22 +128,25 @@
 				Boston, MA 02125
 			</td><!-- address -->
 			<td>Requote declined</td><!-- status -->
+			<td class="show-on-hover"><a href="#">Mark as Sent</a></td><!-- action -->
 		</tr>
-		<tr>
+		<tr class="table-row-show-on-hover">
 			<td>&hellip;</td><!-- date -->
 			<td>&hellip;</td><!-- order# -->
 			<td>&hellip;</td><!-- rejectdate -->
 			<td>&hellip;</td><!--  name -->
 			<td>&hellip;</td><!-- address -->
 			<td>&hellip;</td><!-- status -->
+			<td class="show-on-hover"><a href="#">Mark as Sent</a></td><!-- action -->
 		</tr>
-		<tr>
+		<tr class="table-row-show-on-hover">
 			<td>&hellip;</td><!-- date -->
 			<td>&hellip;</td><!-- order# -->
 			<td>&hellip;</td><!-- rejectdate -->
 			<td>&hellip;</td><!--  name -->
 			<td>&hellip;</td><!-- address -->
 			<td>&hellip;</td><!-- status -->
+			<td class="show-on-hover"><a href="#">Mark as Sent</a></td><!-- action -->
 		</tr>
 	</tbody>
 </table>
@@ -190,6 +198,12 @@
 					</div>
 					<div class="col-md-6">
 						<h3>Requote</h3>
+						<table class="table">
+							<tr>
+								<td>Original Quote</td>
+								<td><strong>$145.00</strong></td>
+							</tr>
+						</table>
 						<form role="form" class="form">
 							<div class="form-group">
 								<label class="" for="exampleInputPassword2">New Price</label>
@@ -207,6 +221,12 @@
 									<label>
 										<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
 										Wrong condition.
+									</label>
+								</div>
+								<div class="radio">
+									<label>
+										<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+										[Other Reasons...]
 									</label>
 								</div>
 							</div>

@@ -56,7 +56,7 @@ var initialData = [
 		]
 	},
 	{	name: "iPhone 4", carrier: "AT&T", storage: "32GB",
-		color: "black",  
+		color: "white",  
 		prices: [
 		{ condition: "Broken", listed : "0", purchased: "3", price: "0" },
 		{ condition: "Used", listed : "0", purchased: "6", price: "0" },
@@ -197,7 +197,9 @@ var filterNoneChecked = function(filter){
 var DevicesModel = function(initial_devices, initial_filters) {
 	// Data
 	var self = this;
-	self.chosenDevice = ko.observable(); // used for editing, borrowing pattern from ko docs
+
+	// used for editing, borrowing pattern from ko docs
+	self.chosenDevice = ko.observable();
 
 	// map json data into observable goodness
 	self.devices = ko.mapping.fromJS([]);
