@@ -1,6 +1,14 @@
 <h3>Orders to Process</h3>
 
 <div class="row">
+	<div class="col-md-4">
+		<form class="form" role="form">
+			<div class="form-group">
+				<label class="" for="exampleInputEmail2">Order Number of Customer Name</label>
+				<input type="email" class="form-control" id="exampleInputEmail2" placeholder="123456789012 or Johnny Appleseed">
+			</div>
+		</form>
+	</div>
 	<div class="col-md-6">
 		<form class="form-inline" role="form">
 			<div class="form-group">
@@ -13,50 +21,70 @@
 			</div>
 		</form>
 	</div>
-	<div class="col-md-4">
-		<form class="form" role="form">
-			<div class="form-group">
-				<label class="" for="exampleInputEmail2">Order Number of Customer Name</label>
-				<input type="email" class="form-control" id="exampleInputEmail2" placeholder="123456789012 or Johnny Appleseed">
-			</div>
-		</form>
-	</div>
 	<div class="col-md-2">
 		
 	</div>
 </div>
 
 <div data-bind="with: chosenOrder">
-	<h3>Items in order <span data-bind="text: orderNumber"></span> <small><a class="btn btn-sm btn-default" href="#" data-bind="click: $root.clearChosenOrder">Cancel</a></small></h3>
-	<table class="table table-fat">
-		<thead>
-			<th>SKU</th>
-			<th>Device</th>
-			<th>Carrier</th>
-			<th>Size</th>
-			<th>Color</th>
-			<th>Condition</th>
-			<th>Status</th>
-			<th class="col-md-3">Check in</th>
-		</thead>
-		<tbody data-bind="foreach: items">
-			<tr class="table-row-show-on-hover">
-				<td data-bind="text: sku"></td>
-				<td data-bind="text: name"></td>
-				<td data-bind="text: carrier"></td>
-				<td data-bind="text: size"></td>
-				<td data-bind="text: color"></td>
-				<td data-bind="text: condition"></td>
-				<td data-bind="text: status"></td>
-				<td class="show-on-hover">
-					<div class="hidden">
-						<button class="btn btn-xs btn-warning" data-bind="click: $root.markForRequote">Mark for Requote</button> 
-						<button class="btn btn-xs btn-primary" data-bind="click: $root.approveCheckin">Approve for payment</button>
-					</div>
-				</td>
-			</tr>
-		</tbody>
-	</table>
+	<h3>Items in order <span data-bind="text: orderNumber"></span> 
+		<small>
+			<a class="btn btn-sm btn-default" data-toggle="modal" href="#addItem">Add an Item</a>
+			<a class="btn btn-sm btn-default" href="#" data-bind="click: $root.clearChosenOrder">Done</a>
+		</small>
+	</h3>
+	<div data-bind="visible: $root.itemsAwaitingCheckinOrders($data, 'electronics', 'Awaiting Check-in').length > 0">
+		<h5>Electronics</h5>
+		<table class="table table-fat">
+			<thead>
+				<th>UPC</th>
+				<th>Device</th>
+				<th>Condition</th>
+				<th>Tracking</th>
+				<th>Status</th>
+				<th class="col-md-3">Check in</th>
+			</thead>
+			<tbody data-bind="foreach: $root.itemsAwaitingCheckinOrders($data, 'electronics', 'Awaiting Check-in')">
+				<tr class="table-row-show-on-hover">
+					<td data-bind="text: sku"></td>
+					<td data-bind="text: name() + ' ' + carrier() + ' ' + size() + ' ' + color() "></td>
+					<td data-bind="text: condition"></td>
+					<td><a href="#" data-bind="text: tracking"></a></td>
+					<td data-bind="text: status"></td>
+					<td class="show-on-hover">
+						<button class="btn btn-xs btn-default" data-bind="click: $root.markForRequote">Mark for Requote</button>  &nbsp; <button class="btn btn-xs btn-primary" data-bind="click: $root.approveCheckin">Approve for payment</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div><!-- electronics div -->
+	<div data-bind="visible: $root.itemsAwaitingCheckinOrders($data, 'book', 'Awaiting Check-in').length > 0">
+		<h5>Books</h5>
+		<table class="table table-fat">
+			<thead>
+				<th>ISBN</th>
+				<th>Title</th>
+				<th>Condition</th>
+				<th>CD Required?</th>
+				<th>Tracking</th>
+				<th>Status</th>
+				<th class="col-md-3">Check in</th>
+			</thead>
+			<tbody data-bind="foreach: $root.itemsAwaitingCheckinOrders($data, 'book', 'Awaiting Check-in')">
+				<tr class="table-row-show-on-hover">
+					<td data-bind="text: sku"></td>
+					<td data-bind="text: title"></td>
+					<td data-bind="text: condition"></td>
+					<td data-bind="text: insert"></td>
+					<td><a href="#" data-bind="text: tracking"></a></td>
+					<td data-bind="text: status"></td>
+					<td class="show-on-hover">
+						<button class="btn btn-xs btn-default" data-bind="click: $root.markForRequote">Mark for Requote</button>  &nbsp; <button class="btn btn-xs btn-primary" data-bind="click: $root.approveCheckin">Approve for payment</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
 
 <h3>Orders Awaiting Approval</h3>
@@ -71,7 +99,7 @@
 		<th>Process Order</th>
 	</thead>
 	<tbody data-bind="foreach: awaitingCheckinOrders">
-		<tr data-bind='click: $root.chooseOrder, css: { active: $root.chosenOrder() == $data }'>
+		<tr class="table-row-show-on-hover" data-bind='click: $root.chooseOrder, css: { active: $root.chosenOrder() == $data }'>
 			<td data-bind='text: orderNumber'></td>
 			<td data-bind='text: date'></td>
 			<td data-bind='text: items().length'></td>
@@ -80,25 +108,46 @@
 			<td>
 				<span data-bind="text: $root.numberForCheckin($data)"></span> of <span data-bind="text: items().length"></span> Awaiting Checkin
 			</td>
-			<td class="table-row-hover-action"><a class="">Check In</a></td>
+			<!-- <td class="table-row-hover-action"><a class="">Check In</a></td> -->
+			<td class="show-on-hover"><a>Check In</a></td>
 		</tr>
-		<!-- <tr class="clickable-row" data-toggle="modal" href="#check-in-modal">
-			<td>1234567890123</td>
-			<td>9/1/2013</td>
-			<td>2</td>
-			<td>Johnny Appleseed</td>
-			<td>$123.45</td>
-			<td>Awating Check-in</td>
-			<td class="table-row-hover-action"><a class="">Check In</a></td>
-		</tr>
-		<tr>
-			<td>&hellip;</td>
-			<td>&hellip;</td>
-			<td>&hellip;</td>
-			<td>&hellip;</td>
-			<td>&hellip;</td>
-			<td>&hellip;</td>
-			<td class="table-row-hover-action"><a href="#">Check in</a></td>
-		</tr>-->
 	</tbody>
 </table>
+
+<!-- Add an Item Modal -->
+
+<div class="modal fade" id="addItem">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Add an Item to Order [ORDER NUMBER]</h4>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs">
+		  <li class="active"><a href="#booksTab" data-toggle="tab">Books</a></li>
+		  <li><a href="#electronicsTab" data-toggle="tab">Electronics</a></li>
+		</ul>
+		<div class="tab-content">
+		  <div class="tab-pane active" id="booksTab">
+		  	<h4>Add a Book</h4>
+		  	<form class="form">
+		  		<div class="form-group">
+					<label class="" for="exampleInputEmail2">Enter ISBN</label>
+					<input type="text" class="form-control" id="exampleInputEmail2" placeholder="1234567890123">
+				</div>
+		  	</form>
+		  </div>
+		  <div class="tab-pane" id="electronicsTab">
+		  	<h4>Electronics</h4>
+		  	<!-- @placeholder 400x400 PICKER GOES HERE -->
+		  </div>
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

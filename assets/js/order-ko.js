@@ -8,10 +8,9 @@ var initialOrders = [
 		customerCity: "Cityname", 
 		customerState: "MA", 
 		customerZIP: "02210", 
-		requoteDate: "", 
-		requotePrice: "", 
 		items: [
 			{
+				type: "electronics",
 				sku: "123456789", 
 		 		name: "iPhone 4S",
 		 		carrier: "Verizon",
@@ -19,9 +18,13 @@ var initialOrders = [
 		 		color: "White", 
 		 		condition: "Broken",
 		 		price: "123",
-		 		status: "Awaiting Check-in"
+		 		tracking: "Delivered",
+		 		status: "Awaiting Check-in",
+		 		requoteDate: "", 
+				requotePrice: ""
 		 	},
 		 	{
+		 		type: "electronics",
 				sku: "234567890", 
 		 		name: "iPhone 4",
 		 		carrier: "AT&T",
@@ -29,7 +32,22 @@ var initialOrders = [
 		 		color: "Black", 
 		 		condition: "Good",
 		 		price: "100",
-		 		status: "Awaiting Check-in"
+		 		tracking: "Delivered",
+		 		status: "Awaiting Check-in",
+		 		requoteDate: "", 
+				requotePrice: ""
+		 	},
+		 	{
+				type: "book",
+				sku: "123456789", 
+		 		title: "Campbell Biology",
+		 		insert: "No CD",
+		 		condition: "Very Good",
+		 		price: "123",
+		 		tracking: "Delivered",
+		 		status: "Awaiting Check-in",
+		 		requoteDate: "", 
+				requotePrice: ""
 		 	}
 	 	]
 	},
@@ -38,7 +56,7 @@ var initialOrders = [
 		customerName: "Janie Peachpit", 
 		status: "Awating Check-in", 
 		customerAddress1: "123 Anystreet", 
-		customerAddress2: "Apartment 2", 
+		customerAddress2: "", 
 		customerCity: "Cityname", 
 		customerState: "MA", 
 		customerZIP: "02210", 
@@ -46,14 +64,16 @@ var initialOrders = [
 		requotePrice: "", 
 		items: [
 			{
+				type: "book",
 				sku: "123456789", 
-		 		name: "iPhone 4S",
-		 		carrier: "Verizon",
-		 		size: "64GB",
-		 		color: "White", 
-		 		condition: "Broken",
+		 		title: "Campbell Biology",
+		 		insert: "No CD",
+		 		condition: "Very Good",
 		 		price: "123",
-		 		status: "Awaiting Check-in"
+		 		tracking: "Delivered",
+		 		status: "Awaiting Check-in",
+		 		requoteDate: "", 
+				requotePrice: ""
 		 	}
 	 	]
 	}
@@ -74,6 +94,9 @@ var OrdersModel = function(initial_orders) {
 	var self = this;
 	self.chosenOrder = ko.observable(); // used for editing, borrowing pattern from ko docs
 
+	// used for showing contents of order picked on 'All Orders' tab.
+	self.allChosenOrder = ko.observable(); 
+
 	// map json data into observable goodness
 	self.orders = ko.mapping.fromJS([]);
 	ko.mapping.fromJS(initial_orders, self.orders); // black magic
@@ -84,9 +107,25 @@ var OrdersModel = function(initial_orders) {
 		});
 	}, self);
 
+	self.itemsAwaitingCheckinOrders = function(order, itemType, status){
+		return ko.utils.arrayFilter(order.items(), function(item){
+			if( item.status() === status && item.type() === itemType ){
+		 		return item;
+			}
+		});
+	};
 	self.chooseOrder = function(order) {
 		self.chosenOrder(order);
 	};
+	self.clearChosenOrder = function(){
+		self.chosenOrder("");
+	};
+	self.allChooseOrder = function(order) {
+		self.allChosenOrder(order);
+	}
+	self.clearAllChosenOrder = function(){
+		self.allChosenOrder("");	
+	}
 	self.totalPriceForOrder = function(order) {
 		var total = 0;
 		ko.utils.arrayForEach(order.items(), function(item){
@@ -108,9 +147,6 @@ var OrdersModel = function(initial_orders) {
 	};
 	self.approveCheckin = function(item){
 		item.status("Approved");	
-	};
-	self.clearChosenOrder = function(){
-		self.chosenOrder("");
 	};
 }
 

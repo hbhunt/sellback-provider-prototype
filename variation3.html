@@ -6,46 +6,53 @@
 
 	<div class="container">
 
+	<div class="alert alert-warning alert-dismissable">
+  	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  	<strong>Warning!</strong> Your listings won't appear to customers until you <a href="#" class="alert-link">upload a shipping label</a>. Changes to inventory and pricing will still be saved but no lisitngs will appear on the site. 
+	</div>
+
 	<h1>Inventory Listing</h1>
 
 	<div class="row">
 		<div class="col-md-9" id="content-col">
 
-			<ul class="nav nav-tabs">
-				<li class="active"><a href="#all-listings" data-toggle="tab">All Listings</a></li>
-				<li>
+			<ul class="nav nav-tabs" id="inventory-tabs">
+				<li class="active">
 					<a href="#active-listings" data-toggle="tab">
 						Active Listings 
 						<span class="label label-default" data-bind="text: activeDevices().length">0</span>
 					</a>
 				</li>
-			</ul>			 
+				<li>
+					<a href="#all-listings" data-toggle="tab">All Listings</a>
+				</li>
+			</ul>
 
 			<div class="tab-content">
-				<div class="tab-pane active" id="all-listings">
+				<div class="tab-pane active" id="active-listings">
+					<br>
+					<h4>Active Listings</h4>
+					<div data-bind='visible: activeDevices().length === 0'>
+						<h3 class="lead">To activate a listing, set a price and amount you'd like to buy in the <a href="#" class="toggle-all-listings-tab">All Listings</a> tab.</h3>
+					</div>
+
+					<div data-bind="visible: activeDevices().length > 0">
+					<table class="table table-condensed">
+						<!-- ko template: {name: 'tableHeaderTemplate'} -->
+						<!-- /ko -->
+						<tbody data-bind="template: { name: 'tableTemplate', foreach: activeDevices() }">
+						</tbody>
+					</table>
+
+					<button class="btn btn-default" data-toggle="modal" href="#edit-all-modal">Edit all visible listings</button>
+					</div><!-- hide when there are no listings -->
+				</div><!-- /tab-pane -->
+				<div class="tab-pane" id="all-listings">
 					<br>
 					<h4>All Listings</h4>
 					<table class="table table-condensed" data-bind="">
-						<thead>
-							<td></td>
-							<th>Device + model</th>
-							<th>Carrier</th>
-							<th>Size</th>
-							<th>Color</th>
-							<th colspan="5">Price and quantity</th>
-						</thead>
-						<tr>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th><small>Condition</small></th>
-							<th><small>Sold</small></th>
-							<th><small>Listed</small></th>
-							<th><small>Price</small></th>
-							<th><small>Rank on Site</small></th>
-						</tr>
+						<!-- ko template: {name: 'tableHeaderTemplate'} -->
+						<!-- /ko -->
 						<tbody data-bind="template: { 
 							name: 'tableTemplate', 
 							foreach: filteredDevices() }">
@@ -53,41 +60,6 @@
 					</table>
 
 					<button class="btn btn-default" data-toggle="modal" href="#edit-all-modal">Edit all visible listings</button>
-				</div><!-- /tab-pane -->
-				<div class="tab-pane" id="active-listings">
-					<br>
-					<h4>Active Listings</h4>
-					<div data-bind='visible: activeDevices().length === 0'>
-						<h3 class="lead">To activate a listing, set a price and amount you'd like to buy. </h3>
-					</div>
-
-					<div data-bind="visible: activeDevices().length > 0">
-					<table class="table table-condensed">
-						<thead>
-							<td></td>
-							<th>Device + model</th>
-							<th>Carrier</th>
-							<th>Size</th>
-							<th>Color</th>
-							<th colspan="4">Price and quantity</th>
-						</thead>
-						<tr>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th><small>Condition</small></th>
-							<th><small>Sold</small></th>
-							<th><small>Listed</small></th>
-							<th><small>Price</small></th>
-						</tr>
-						<tbody data-bind="template: { name: 'tableTemplate', foreach: activeDevices() }">
-						</tbody>
-					</table>
-
-					<button class="btn btn-default" data-toggle="modal" href="#edit-all-modal">Edit all visible listings</button>
-					</div><!-- hide when there are no listings -->
 				</div><!-- /tab-pane -->
 				
 			</div><!-- /tab-content -->
@@ -116,38 +88,6 @@
 		</div><!-- right column -->
 	</div>
 
-	<!-- Edit row modal -->
-	<div class="modal fade" id="edit-row-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-bind="with: chosenDevice">
-		<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title" data-bind="text: name() + ' ' + carrier() + ' ' + storage() + ' ' + color()"></h4>
-			</div>
-			<div class="modal-body">
-				<form role="form" id="device-form" data-bind="foreach: prices">
-					<div class="form-group row">
-						<label for="" class="col-lg-2 control-label" data-bind="text: condition"></label>
-						<div class="input-group col-lg-3">
-							<span class="input-group-addon">$</span>
-							<input type="text" inputmode="numeric" class="form-control" data-bind="value: price">
-						</div>
-						<div class="input-group col-lg-4">
-							<span class="input-group-addon">Quantity</span>
-							<input type="number" class="form-control" min="0" data-bind="value: listed">
-						</div>
-					</div>
-				</form>
-				
-			</div><!-- /modal-body -->
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" data-dismiss="modal" data-bind="click: $root.commitAll">Save changes</button>
-			</div>
-		</div><!-- /.modal-content -->
-		</div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
-
 	<!-- Edit all modal -->
 	<div class="modal fade" id="edit-all-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -173,24 +113,24 @@
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
 
-	<!-- Add an item modal -->
-	<div class="modal fade" id="add-item-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title">Add an Item</h4>
-			</div>
-			<div class="modal-body">
-				[Picker]
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
-			</div>
-		</div><!-- /.modal-content -->
-		</div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
+	<!-- Table Row Header -->
+	<script type="text/html" id="tableHeaderTemplate">
+		<thead>
+			<th colspan="2">Device + model</th>
+			<th>Carrier</th>
+			<th>Size</th>
+			<th>Color</th>
+			<th colspan="5">Price and quantity</th>
+		</thead>
+		<tr>
+			<th colspan="5"></th>
+			<th><small>Condition</small></th>
+			<th><small>Listed</small></th>
+			<th><small>Price</small></th>
+			<th><small>Highest Active Bid</small></th>
+			<th><small>Competitiveness</small></th>
+		</tr>
+	</script>
 
 	<!-- Table Row Template -->
 	<script type="text/html" id="tableTemplate">
@@ -203,7 +143,7 @@
 			<!-- ko foreach: prices -->
 			<!-- ko if: $index == 0 -->
 			<td data-bind='text: condition'></td>
-			<td data-bind='text: purchased'></td>
+
 			<td data-bind='text: listed'></td>
 			<td data-bind='text: price'></td>
 			<!-- /ko -->
@@ -212,14 +152,13 @@
 		<!-- ko foreach: prices -->
 		<tr class="baby-row">
 			<td data-bind='text: condition'></td>
-			<td data-bind='text: purchased'></td>
 			<td>
 				<input  type="number" size="4em" max="9999" min="0"  data-bind='value: listed' />
 			</td>
 			<td class="price">
 				<input  type="text" size="4em"  data-bind='value: price' />
 			</td>
-
+			<td class="price" data-bind='text: (+price()*1.05)'></td>
 			<td><span class="" data-bind="text: $root.getFakePriceRank($data), css: {
 				'label': true, 
 				'label-success': $root.getFakePriceRank($data) === 'Competitive',
@@ -246,10 +185,7 @@
 		set_tooltips();
 		// watch_values();
 		// price_link_targets();
-
-		$(".checkbox").change(function(e){
-			check_ipad();
-		});
+		setAllListingsTabLink();
 
 		// make nav drop-down appear active if the current page is a child link
 		$('.current').addClass('active');

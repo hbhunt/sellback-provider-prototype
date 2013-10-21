@@ -169,6 +169,12 @@ var table_row_hover_action = function(){
 	); // watch the <tr> around the <td>
 }
 
+var setAllListingsTabLink = function(){
+	$('.toggle-all-listings-tab').click(function(){
+		$('#inventory-tabs a[href="#all-listings"]').tab('show');
+	});
+}
+
 // jquery plugin to watch for changes to arbitrary dom elements
 jQuery.fn.contentChange = function(callback){
     var elms = jQuery(this);

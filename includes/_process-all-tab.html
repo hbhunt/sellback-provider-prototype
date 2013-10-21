@@ -1,6 +1,14 @@
 <h3>All Orders</h3>
 
 <div class="row">
+	<div class="col-md-4">
+		<form class="form" role="form">
+			<div class="form-group">
+				<label class="" for="exampleInputEmail2">Order Number of Customer Name</label>
+				<input type="email" class="form-control" id="exampleInputEmail2" placeholder="123456789012 or Johnny Appleseed">
+			</div>
+		</form>
+	</div>
 	<div class="col-md-6">
 		<form class="form-inline" role="form">
 			<div class="form-group">
@@ -10,15 +18,7 @@
 			<div class="form-group">
 				<label class="" for="exampleInputPassword2">End Date</label>
 				<input type="text" class="form-control" id="checkin-end-date" placeholder="September 8, 2013">
-			</div>
-		</form>
-	</div>
-	<div class="col-md-4">
-		<form class="form" role="form">
-			<div class="form-group">
-				<label class="" for="exampleInputEmail2">Order Number of Customer Name</label>
-				<input type="email" class="form-control" id="exampleInputEmail2" placeholder="123456789012 or Johnny Appleseed">
-			</div>
+			</div>	
 		</form>
 	</div>
 	<div class="col-md-2">
@@ -26,9 +26,87 @@
 	</div>
 </div>
 
-<br><br>
+<div data-bind="with: allChosenOrder">
+	<h3>Order Details [<span data-bind="text: orderNumber"></span>] 
+		<small>
+			<a class="btn btn-sm btn-default" href="#" data-bind="click: $root.clearAllChosenOrder">Done</a>
+		</small>
+	</h3>
+	<div class="row">
+		<div class="col-md-4">
+			<address>
+				<strong data-bind="text: customerName"></strong><br>
+  				<span data-bind="text: customerAddress1"></span><br>
+  				<div data-bind="visible: customerAddress2().length > 0">
+  					<span data-bind="text: customerAddress2"></span><br>
+  				</div>
+  				<span data-bind="text: customerCity"></span>, <span data-bind="text: customerState"></span> <span data-bind="text: customerZIP"></span><br>
+			</address>
+		</div>
+		<div class="col-md-4">
+			<strong>Order Total</strong>
+			<p data-bind="text: '$' + $root.totalPriceForOrder($data)"></p>
+			<strong>Number of Items</strong>
+			<p data-bind='text: items().length'></p>
+		</div>
+	</div>
+	<div data-bind="visible: $root.itemsAwaitingCheckinOrders($data, 'electronics', 'Awaiting Check-in').length > 0">
+		<h5>Electronics</h5>
+		<table class="table table-fat">
+			<thead>
+				<th>UPC</th>
+				<th>Device</th>
+				<th>Condition</th>
+				<th>Tracking</th>
+				<th>Status</th>
+				<th>Requote Date</th>
+				<th>Requote Price</th>
+			</thead>
+			<tbody data-bind="foreach: $root.itemsAwaitingCheckinOrders($data, 'electronics', 'Awaiting Check-in')">
+				<tr class="table-row-show-on-hover">
+					<td data-bind="text: sku"></td>
+					<td data-bind="text: name() + ' ' + carrier() + ' ' + size() + ' ' + color() "></td>
+					<td data-bind="text: condition"></td>
+					<td><a href="#" data-bind="text: tracking"></a></td>
+					<td data-bind="text: status"></td>
+					<td data-bind="text: requoteDate"></td>
+					<td data-bind="text: requotePrice"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div><!-- electronics div -->
+	<div data-bind="visible: $root.itemsAwaitingCheckinOrders($data, 'book', 'Awaiting Check-in').length > 0">
+		<h5>Books</h5>
+		<table class="table table-fat">
+			<thead>
+				<th>ISBN</th>
+				<th>Title</th>
+				<th>CD Required?</th>
+				<th>Condition</th>
+				<th>Tracking</th>
+				<th>Status</th>
+				<th>Requote Date</th>
+				<th>Requote Price</th>
+			</thead>
+			<tbody data-bind="foreach: $root.itemsAwaitingCheckinOrders($data, 'book', 'Awaiting Check-in')">
+				<tr class="table-row-show-on-hover">
+					<td data-bind="text: sku"></td>
+					<td data-bind="text: title"></td>
+					<td data-bind="text: insert"></td>
+					<td data-bind="text: condition"></td>
+					<td><a href="#" data-bind="text: tracking"></a></td>
+					<td data-bind="text: status"></td>
+					<td data-bind="text: requoteDate"></td>
+					<td data-bind="text: requotePrice"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<hr>
+</div>
 
-<table class="table table-condensed table-hover">
+<h3>All Orders</h3>
+<table class="table table-hover">
 	<thead>
 		<th>Order Number</th>
 		<th>Date</th>
@@ -37,97 +115,17 @@
 		<th>Customer Name</th>
 		<th>Status</th>
 	</thead>
-	<tbody>
-		<tr>
-			<td>1234567890123</td><!-- order # -->
-			<td>9/1/2013</td><!-- date -->
-			<td>2</td>
-			<td>$123.45</td><!-- price -->
-			<td>Johnny Appleseed</td><!-- name -->
+	<tbody data-bind="foreach: orders">
+		<tr class="table-row-show-on-hover" data-bind='click: $root.allChooseOrder, css: { active: $root.chosenOrder() == $data }'>
+			<td data-bind='text: orderNumber'></td>
+			<td data-bind='text: date'></td>
+			<td data-bind='text: items().length'></td>
+			<td data-bind='text: "$" + $root.totalPriceForOrder($data)'></td>
+			<td data-bind='text: customerName'></td>
 			<td>
-				1 of 2 Awating Check-in<br>
-				1 of 2 Complete
-			</td><!-- status -->
-		</tr>
-		<tr>
-			<td>&hellip;</td><!-- date -->
-			<td>&hellip;</td><!-- order # -->
-			<td>&hellip;</td><!-- price -->
-			<td>&hellip;</td><!-- name -->
-			<td>&hellip;</td><!-- address -->
-			<td>&hellip;</td><!-- status -->
-		</tr>
-		<tr>
-			<td>&hellip;</td><!-- date -->
-			<td>&hellip;</td><!-- order # -->
-			<td>&hellip;</td><!-- price -->
-			<td>&hellip;</td><!-- name -->
-			<td>&hellip;</td><!-- address -->
-			<td>&hellip;</td><!-- status -->
+				<span data-bind="text: $root.numberForCheckin($data)"></span> of <span data-bind="text: items().length"></span> Awaiting Checkin
+			</td>
+			<!-- <td class="table-row-hover-action"><a class="">Check In</a></td> -->
 		</tr>
 	</tbody>
 </table>
-
-<div class="modal fade" id="check-in-modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title">Check in Order [order number]</h4>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col-md-4">
-						<!-- @placeholder 150x300 iphone -->
-						<p class="text-center">UPC <strong>123456789012</strong></p>
-					</div>
-					<div class="col-md-8">
-						<h3>Device</h3>
-						<table class="table">
-							<tr>
-								<td>Device</td>
-								<td><strong>iPhone 4S</strong></td>
-							</tr>
-							<tr>
-								<td>Carrier</td>
-								<td><strong>Verizon</strong></td>
-							</tr>
-							<tr>
-								<td>Size</td>
-								<td><strong>32 GB</strong></td>
-							</tr>
-							<tr>
-								<td>Color</td>
-								<td><strong>White</strong></td>
-							</tr>
-							<tr>
-								<td>Condition</td>
-								<td><strong>Used</strong></td>
-							</tr>
-						</table>
-						<h3>Customer</h3>
-						<table class="table">
-							<tr>
-								<td>Name</td>
-								<td><strong>Johnny Appleseed</strong></td>
-							</tr>
-							<tr>
-								<td>Address</td>
-								<td>
-									<strong>268 Summer Street, Suite 502<br>
-									Boston, MA 02125</strong>
-								</td>
-							</tr>
-						</table>
-						<button class="btn btn-warning">Mark for Requote</button>
-						<button class="btn btn-primary">Approve for payment</button>
-					</div>
-				</div><!-- /row -->
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-default">Next Order</button>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
