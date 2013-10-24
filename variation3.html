@@ -50,6 +50,7 @@
 				<div class="tab-pane" id="all-listings">
 					<br>
 					<h4>All Listings</h4>
+					<div data-bind="visible: filteredDevices() && filteredDevices().length > 0">
 					<table class="table table-condensed" data-bind="">
 						<!-- ko template: {name: 'tableHeaderTemplate'} -->
 						<!-- /ko -->
@@ -60,6 +61,7 @@
 					</table>
 
 					<button class="btn btn-default" data-toggle="modal" href="#edit-all-modal">Edit all visible listings</button>
+					</div><!-- visible -->
 				</div><!-- /tab-pane -->
 				
 			</div><!-- /tab-content -->
@@ -67,23 +69,32 @@
 			
 		</div><!-- /left column -->
 		<div class="col-md-3" id="filter-column">
-			<h4>Filter Listings</h4>
-			<!-- ko foreach: filters -->
-			<h5 data-bind="text: name"></h5>
-			<form role="form">
-				<div class="form-group" data-bind="foreach: choices">
-					<div class="checkbox" data-bind="attr: { id: id }, changed: $root.setFilter">
-						<label>
-							<input class="checkbox filter-checkbox" type="checkbox" data-bind="checked: value, event: { change: $root.updateFilters() }">
-							<span data-bind="text: label"></span> &mdash; 
-							<span class="text-muted" data-bind="text: count"></span>
-					 	</label>
-					</div><!-- /checkbox -->
-				</div><!-- /form group -->
+			<form>
+				<div class="form-group">
+					<label class="control-label">Product Category</label>
+					<select class="form-control" data-bind="options: categories, optionsText: 'name', optionsCaption: 'Choose...', value: chosenCategory">
+					</select>
+				</div><!-- /form-group -->
 			</form>
-			<!-- /ko -->
+			<div data-bind="visible: chosenCategory() && filters().length > 0">
+				<h4>Filter Listings</h4>
+				<!-- ko foreach: filters -->
+				<h5 data-bind="text: name"></h5>
+				<form role="form">
+					<div class="form-group" data-bind="foreach: choices">
+						<div class="checkbox" data-bind="attr: { id: id }, changed: $root.setFilter">
+							<label>
+								<input class="checkbox filter-checkbox" type="checkbox" data-bind="checked: value, event: { change: $root.updateFilters() }">
+								<span data-bind="text: label"></span> &mdash; 
+								<span class="text-muted" data-bind="text: count"></span>
+						 	</label>
+						</div><!-- /checkbox -->
+					</div><!-- /form group -->
+				</form>
+				<!-- /ko -->
 
-			<button class="btn btn-link" data-bind="click: clearFilters">Clear Filters</button>
+				<button class="btn btn-link" data-bind="click: clearFilters">Clear Filters</button>
+			</div><!-- end visible div -->
 
 		</div><!-- right column -->
 	</div>
