@@ -31,18 +31,24 @@
 			<div class="tab-content">
 				<div class="tab-pane active" id="active-listings">
 					<br>
+					<!-- ko template: {name: 'category-breadcrumb'} -->
+					<!-- /ko -->
+
 					<div data-bind='visible: activeDevices().length === 0 && chosenCategory()'>
 						<h3 class="lead">To activate a listing, set a price and amount you'd like to buy in the <a href="#" class="toggle-all-listings-tab">All Listings</a> tab.</h3>
 					</div>
 					
 					<div data-bind="visible: !chosenCategory()">
 						<h4>Active Listings</h4>
-						<dl class="dl-horizontal" data-bind="foreach: categories">
-							<dt><a href="#" data-bind="text: name, click: $root.setCategory"></a></dt>
-							<dd data-bind="text: activeCount"></dd>
+						<ul class="col-md-4 nav nav-pills nav-stacked" data-bind="foreach: categories">
+							<li>
+								<a href="#" data-bind="click: $root.setCategory">
+									<span data-bind="text: name"></span> 
+									<span class="badge pull-right" data-bind="text: activeCount"></span>
+								</a>
+							</li>
 						</dl>
 					</div>
-					
 
 					<div data-bind="visible: activeDevices().length > 0">
 					<table class="table table-condensed">
@@ -57,8 +63,11 @@
 				</div><!-- /tab-pane -->
 				<div class="tab-pane" id="all-listings">
 					<br>
-					<h4>All Listings</h4>
+					<!-- ko template: {name: 'category-breadcrumb'} -->
+					<!-- /ko -->
+
 					<div data-bind="visible: filteredDevices() && filteredDevices().length > 0">
+					<h4>All Listings</h4>
 					<table class="table table-condensed" data-bind="">
 						<!-- ko template: {name: 'tableHeaderTemplate'} -->
 						<!-- /ko -->
@@ -70,6 +79,12 @@
 
 					<button class="btn btn-default" data-toggle="modal" href="#edit-all-modal">Edit all visible listings</button>
 					</div><!-- visible -->
+					<div data-bind="visible: !chosenCategory()">
+						<h4>Choose a category</h4>
+						<ul class="col-md-4 nav nav-pills nav-stacked" data-bind="foreach: categories">
+							<li><a href="#" data-bind="text: name, click: $root.setCategory"></a></li>
+						</dl>
+					</div>
 				</div><!-- /tab-pane -->
 				
 			</div><!-- /tab-content -->
@@ -188,6 +203,15 @@
 			</td>
 		</tr>
 		<!-- /ko -->
+	</script>
+
+	<script type="text/html" id="category-breadcrumb">
+		<ol class="breadcrumb">
+			<li><a href="#" data-bind="click: clearCategory">All Categories</a></li>
+			<li class="active" data-bind="visible: chosenCategory(), with: chosenCategory()">
+				<span data-bind="text: name"></span>
+			</li>	
+		</ol>
 	</script>
 	
 	<br>
