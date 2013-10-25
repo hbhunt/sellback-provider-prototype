@@ -20,7 +20,7 @@
 				<li class="active">
 					<a href="#active-listings" data-toggle="tab">
 						Active Listings 
-						<span class="label label-default" data-bind="text: activeDevices().length">0</span>
+						<span class="label label-default" data-bind="visible: chosenCategory(), text: activeDevices().length">0</span>
 					</a>
 				</li>
 				<li>
@@ -31,10 +31,18 @@
 			<div class="tab-content">
 				<div class="tab-pane active" id="active-listings">
 					<br>
-					<h4>Active Listings</h4>
-					<div data-bind='visible: activeDevices().length === 0'>
+					<div data-bind='visible: activeDevices().length === 0 && chosenCategory()'>
 						<h3 class="lead">To activate a listing, set a price and amount you'd like to buy in the <a href="#" class="toggle-all-listings-tab">All Listings</a> tab.</h3>
 					</div>
+					
+					<div data-bind="visible: !chosenCategory()">
+						<h4>Active Listings</h4>
+						<dl class="dl-horizontal" data-bind="foreach: categories">
+							<dt data-bind="text: name"></dt>
+							<dd data-bind="text: activeCount"></dd>
+						</dl>
+					</div>
+					
 
 					<div data-bind="visible: activeDevices().length > 0">
 					<table class="table table-condensed">

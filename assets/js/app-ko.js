@@ -1,5 +1,5 @@
 var initialCategories = [
-	{	name: "Phone", category: "phone", 
+	{	name: "Phones", category: "phone", activeCount: 0,
 		filters:  
 			[
 				{	name: "iPhone Model",
@@ -80,7 +80,7 @@ var initialCategories = [
 			}
 		]
 	}, // end phones
-	{	name: "Tablet", category: "tablet", 
+	{	name: "Tablets", category: "tablet", activeCount: 0,
 		filters: [
 				{	name: "iPad Model",
 					choices: [
@@ -155,7 +155,7 @@ var initialCategories = [
 			}
 		] 
 	},
-	{	name: "Video Game Console", category: "console", filters: [], devices: [] }
+	{	name: "Video Game Consoles", category: "console", activeCount: 0, filters: [], devices: [] }
 ];
 
 // var initialData = [
@@ -188,7 +188,7 @@ var initialCategories = [
 var isListed = function(device){
 	var listed = false;
 	ko.utils.arrayForEach(device.prices(), function(price){
-		if( parseInt(price.listed()) > 0 ){
+		if( parseInt(price.listed()) > 0 && parseInt(price.price()) > 0 ){
 		 listed = true;
 		}
 	});
@@ -259,6 +259,14 @@ var DevicesModel = function(initial_categories) {
 		})
 	}, self);
 
+	// self.totalActive = ko.computed(function(){
+	// 	var count = 0;
+	// 	ko.utils.arrayForEach(self.categories(), function(category){
+	// 		count += category.activeCount();
+	// 	});
+	// 	return count;
+	// });
+
 	self.chosenCategory = ko.observable();
 
 	self.commitAll = function() {
@@ -279,10 +287,12 @@ var DevicesModel = function(initial_categories) {
 	self.setFilters = function(filtersJSON){
 		ko.mapping.fromJS(filtersJSON, self.filters); // black magic
 		self.updateFilters();
+		self.setCategoryActiveCounts();
 	}
 	self.setDevices = function(devicesJSON){
 		ko.mapping.fromJS(devicesJSON, self.devices); // black magic
 		self.updateFilters();
+		self.setCategoryActiveCounts();
 	}
 	self.updateFilters = function(){
 		var _devices = self.devices();
@@ -310,6 +320,17 @@ var DevicesModel = function(initial_categories) {
 		if( _priceAsInt > 10 ){ return "Below Average"; }
 		if( _priceAsInt > 1 ){ return "unrakned"; }
 		return "";
+	};
+	self.setCategoryActiveCounts = function(){
+		ko.utils.arrayForEach(self.categories(), function(category){
+			var count = 0;
+			ko.utils.arrayForEach(category.devices(), function(device){
+				if( isListed(device) ){
+					count++;
+				}
+			});
+			category.activeCount(count);
+		});
 	};
 }
 
