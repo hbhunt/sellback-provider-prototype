@@ -38,7 +38,7 @@
 					<div data-bind="visible: !chosenCategory()">
 						<h4>Active Listings</h4>
 						<dl class="dl-horizontal" data-bind="foreach: categories">
-							<dt data-bind="text: name"></dt>
+							<dt><a href="#" data-bind="text: name, click: $root.setCategory"></a></dt>
 							<dd data-bind="text: activeCount"></dd>
 						</dl>
 					</div>

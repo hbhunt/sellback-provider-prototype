@@ -294,6 +294,9 @@ var DevicesModel = function(initial_categories) {
 		self.updateFilters();
 		self.setCategoryActiveCounts();
 	}
+	self.setCategory = function(category){
+		self.chosenCategory(category);
+	}
 	self.updateFilters = function(){
 		var _devices = self.devices();
 		ko.utils.arrayForEach(self.filters(), function(filter) {
