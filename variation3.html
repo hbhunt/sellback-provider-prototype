@@ -20,7 +20,7 @@
 				<li class="active">
 					<a href="#active-listings" data-toggle="tab">
 						Active Listings 
-						<span class="label label-default" data-bind="text: activeDevices().length">0</span>
+						<span class="label label-default" data-bind="visible: chosenCategory(), text: activeDevices().length">0</span>
 					</a>
 				</li>
 				<li>
@@ -31,9 +31,23 @@
 			<div class="tab-content">
 				<div class="tab-pane active" id="active-listings">
 					<br>
-					<h4>Active Listings</h4>
-					<div data-bind='visible: activeDevices().length === 0'>
+					<!-- ko template: {name: 'category-breadcrumb'} -->
+					<!-- /ko -->
+
+					<div data-bind='visible: activeDevices().length === 0 && chosenCategory()'>
 						<h3 class="lead">To activate a listing, set a price and amount you'd like to buy in the <a href="#" class="toggle-all-listings-tab">All Listings</a> tab.</h3>
+					</div>
+					
+					<div data-bind="visible: !chosenCategory()">
+						<h4>Active Listings</h4>
+						<ul class="col-md-4 nav nav-pills nav-stacked" data-bind="foreach: categories">
+							<li>
+								<a href="#" data-bind="click: $root.setCategory">
+									<span data-bind="text: name"></span> 
+									<span class="badge pull-right" data-bind="text: activeCount"></span>
+								</a>
+							</li>
+						</dl>
 					</div>
 
 					<div data-bind="visible: activeDevices().length > 0">
@@ -49,6 +63,10 @@
 				</div><!-- /tab-pane -->
 				<div class="tab-pane" id="all-listings">
 					<br>
+					<!-- ko template: {name: 'category-breadcrumb'} -->
+					<!-- /ko -->
+
+					<div data-bind="visible: filteredDevices() && filteredDevices().length > 0">
 					<h4>All Listings</h4>
 					<table class="table table-condensed" data-bind="">
 						<!-- ko template: {name: 'tableHeaderTemplate'} -->
@@ -60,6 +78,13 @@
 					</table>
 
 					<button class="btn btn-default" data-toggle="modal" href="#edit-all-modal">Edit all visible listings</button>
+					</div><!-- visible -->
+					<div data-bind="visible: !chosenCategory()">
+						<h4>Choose a category</h4>
+						<ul class="col-md-4 nav nav-pills nav-stacked" data-bind="foreach: categories">
+							<li><a href="#" data-bind="text: name, click: $root.setCategory"></a></li>
+						</dl>
+					</div>
 				</div><!-- /tab-pane -->
 				
 			</div><!-- /tab-content -->
@@ -67,23 +92,32 @@
 			
 		</div><!-- /left column -->
 		<div class="col-md-3" id="filter-column">
-			<h4>Filter Listings</h4>
-			<!-- ko foreach: filters -->
-			<h5 data-bind="text: name"></h5>
-			<form role="form">
-				<div class="form-group" data-bind="foreach: choices">
-					<div class="checkbox" data-bind="attr: { id: id }, changed: $root.setFilter">
-						<label>
-							<input class="checkbox filter-checkbox" type="checkbox" data-bind="checked: value, event: { change: $root.updateFilters() }">
-							<span data-bind="text: label"></span> &mdash; 
-							<span class="text-muted" data-bind="text: count"></span>
-					 	</label>
-					</div><!-- /checkbox -->
-				</div><!-- /form group -->
+			<form>
+				<div class="form-group">
+					<label class="control-label">Product Category</label>
+					<select class="form-control" data-bind="options: categories, optionsText: 'name', optionsCaption: 'Choose...', value: chosenCategory">
+					</select>
+				</div><!-- /form-group -->
 			</form>
-			<!-- /ko -->
+			<div data-bind="visible: chosenCategory() && filters().length > 0">
+				<h4>Filter Listings</h4>
+				<!-- ko foreach: filters -->
+				<h5 data-bind="text: name"></h5>
+				<form role="form">
+					<div class="form-group" data-bind="foreach: choices">
+						<div class="checkbox" data-bind="attr: { id: id }, changed: $root.setFilter">
+							<label>
+								<input class="checkbox filter-checkbox" type="checkbox" data-bind="checked: value, event: { change: $root.updateFilters() }">
+								<span data-bind="text: label"></span> &mdash; 
+								<span class="text-muted" data-bind="text: count"></span>
+						 	</label>
+						</div><!-- /checkbox -->
+					</div><!-- /form group -->
+				</form>
+				<!-- /ko -->
 
-			<button class="btn btn-link" data-bind="click: clearFilters">Clear Filters</button>
+				<button class="btn btn-link" data-bind="click: clearFilters">Clear Filters</button>
+			</div><!-- end visible div -->
 
 		</div><!-- right column -->
 	</div>
@@ -116,7 +150,7 @@
 	<!-- Table Row Header -->
 	<script type="text/html" id="tableHeaderTemplate">
 		<thead>
-			<th colspan="2">Device + model</th>
+			<th colspan="2">Item Description</th>
 			<th>Carrier</th>
 			<th>Size</th>
 			<th>Color</th>
@@ -169,6 +203,15 @@
 			</td>
 		</tr>
 		<!-- /ko -->
+	</script>
+
+	<script type="text/html" id="category-breadcrumb">
+		<ol class="breadcrumb">
+			<li><a href="#" data-bind="click: clearCategory">All Categories</a></li>
+			<li class="active" data-bind="visible: chosenCategory(), with: chosenCategory()">
+				<span data-bind="text: name"></span>
+			</li>	
+		</ol>
 	</script>
 	
 	<br>
