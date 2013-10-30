@@ -357,9 +357,11 @@ devicesModel.chosenCategory.subscribe(function(category) {
 	if(!category){
 		devicesModel.setFilters([]);
 		devicesModel.setDevices([]);
+		// mixpanel.track("Set category to none.");
 	}
 	else {
 		devicesModel.setFilters(category.filters());
 		devicesModel.setDevices(category.devices());
+		// mixpanel.track("Set category to " + category.name());
 	}
 });
