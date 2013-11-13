@@ -13,8 +13,24 @@
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav">
+      <li><a href="<!-- @path dashboard-variation-1.html -->">Dashboard</a></li>
       <li><a href="<!-- @path variation3.html -->">Inventory Listing</a></li>
       <li><a href="<!-- @path process-order-variation-1.html -->">Process Orders</a></li>
     </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Logged in as [NAME] <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">My Account</a></li>
+          <li class="divider"></li>
+          <li><a href="#">Sign Out</a></li>
+        </ul>
+      </li>
+    </ul>
   </div><!-- /.navbar-collapse -->
 </nav>
+
+<div class="alert alert-warning alert-dismissable">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <strong>Warning!</strong> Your listings won't appear to customers until you <a href="#" class="alert-link">upload a shipping label</a>. Changes to inventory and pricing will still be saved but no lisitngs will appear on the site. 
+</div>

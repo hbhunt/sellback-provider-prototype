@@ -1,0 +1,121 @@
+<!-- $title Dashboard -->
+<!-- @include _header -->
+<body>
+
+  <!-- @include _nav.html -->
+
+  <div class="container">
+
+  <div class="row">
+    <div class="col-md-3">
+      <ul class="nav nav-pills nav-stacked side-nav" data-spy="affix" data-offset-top="100">
+        <li class="side-nav-header">Books</li>
+          <li><a href="#">Buy List</a></li>
+          <li><a href="#">Order Summary</a></li>
+          <li><a href="#">Shipping Labels</a></li>
+          <li><a href="#">Respond to Feedback</a></li>
+        <li class="side-nav-header">Electronics</li>
+          <li><a href="#">Buy List</a></li>
+          <li><a href="#">Order Summary</a></li>
+          <li><a href="#">Shipping Labels</a></li>
+          <li><a href="#">Respond to Feedback</a></li>
+        <li class="side-nav-header">Electronics</li>
+          <li><a href="#">Credit Card</a></li>
+          <li><a href="#">FTP Info</a></li>
+          <li><a href="#">Email Notifications</a></li>
+          <li><a href="#">Billing Info</a></li>
+          <li><a href="#">Billing Summary</a></li>
+          <li><a href="#">Support</a></li>
+      </ul>
+    </div>
+    <div class="col-md-9">
+      <h1>Buyback Portal Dashboard</h1>
+      <h2>7 <small>new items</small> <span class="pull-right">($234.56)</span></h2>
+      <canvas id="salesByDayChart" width="800" height="300"></canvas>
+      <div class="stat-block col-md-4">
+        <p>Active Listings</p>
+        <h2>30</h2>
+      </div>
+      <div class="stat-block col-md-4">
+        <p>Active Books</p>
+        <h2>15</h2>
+      </div>
+      <div class="stat-block col-md-4">
+        <p>Active Electronics</p>
+        <h2>15</h2>
+      </div>
+
+      <div class="clearfix"></div> 
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Manage Listings</h3>
+          <ul class="leaders">
+            <li>
+              <span><a href="#">Books</a></span> <span>1</span>
+            </li>
+            <li>
+              <span><a href="#">Phones</a></span> <span>21</span>
+            </li>
+            <li>
+              <span><a href="#">Tablets</a></span> <span>12</span>
+            </li>
+            <li>
+              <span><a href="#">Video Game Consoles</a></span> <span>2</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-md-6 ">
+          <h3>Resources</h3>
+          <ul class="list-unstyled">
+            <li><a href="#">Some Resource</a></li>
+            <li><a href="#">Some other resource</a></li>
+          </ul>
+        </div>
+      </div> <!-- /row -->
+
+      <div class="row">
+        <div class="col-md-12">
+          <h3>Recent Sales</h3>
+          <div class="table-responsive">
+            <table class="table table-condensed table-hover">
+            <thead>
+              <th>Order Number</th>
+              <th>Date</th>
+              <th># of Items</th>
+              <th>Price</th>
+              <th>Status</th>
+            </thead>
+            <tr>
+              <td><a href="#">1234</a></td>
+              <td>12/25/2013</td>
+              <td>2</td>
+              <td>$125.00</td>
+              <td>2 of 2 Awaiting Checkin</td>
+            </tr>
+            <tr>
+              <td><a href="#">12345</a></td>
+              <td>12/26/2013</td>
+              <td>1</td>
+              <td>$99.00</td>
+              <td>1 of 1 Awaiting Checkin</td>
+            </tr>
+            <tr>
+              <td><a href="#">12345</a></td>
+              <td>12/26/2013</td>
+              <td>1</td>
+              <td>$99.00</td>
+              <td>1 of 1 Awaiting Checkin</td>
+            </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+  </div><!-- /col-md -->
+
+  </div><!-- /.container -->
+ 
+<!-- @include _scripts -->
+<!-- @javascript dash-var-1.js -->
+</body>
